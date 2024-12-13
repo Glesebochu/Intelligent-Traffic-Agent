@@ -2,13 +2,12 @@ import traci
 import os
 from traci._trafficlight import Logic, Phase
 
-# Specify the SUMO binary (use sumo-gui for visual interface)
 sumoBinary = "sumo-gui"
 sumoConfig = "basemap/basemap.sumocfg"  # Your configuration file
 
 log_file = "fixed_tl_log.txt"
 
-# Traffic light phase definitions for a simple intersection
+# Traffic light phase definitions for intersections
 fixed_phases_dict = {
     1: [Phase(10, "G"),# North-South green, East-West red for 10 seconds
         Phase(3, "y"),# North-South yellow, East-West red for 3 seconds
@@ -67,18 +66,13 @@ def set_fixed_timing(tls_id):
 
 
 def run_baseline():
-    """
-    Runs the baseline agent with fixed traffic light timings.
-    """
     # Open a log file to record traffic light operations
     with open(log_file, "w") as log_handle:
-        # Connect to SUMO
         traci.start([sumoBinary, "-c", sumoConfig])
 
         log_handle.write("Traffic Light Phase Log\n")
         log_handle.write("=" * 40 + "\n")
 
-        # Get all traffic light IDs in the network
         tls_ids = traci.trafficlight.getIDList()
         log_handle.write(f"Detected Traffic Lights: {tls_ids}\n")
 
