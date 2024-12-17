@@ -19,4 +19,3 @@ Dynamic fixed timing set for traffic light: 548237807
 Dynamic fixed timing set for traffic light: 585168279
 Dynamic fixed timing set for traffic light: 627616228
 Dynamic fixed timing set for traffic light: 773653576
-Simulation ended.

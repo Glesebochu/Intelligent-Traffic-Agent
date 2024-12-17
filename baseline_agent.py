@@ -133,7 +133,7 @@ def run_baseline():
                 set_fixed_timing(tls_id)
                 log_handle.write(f"Dynamic fixed timing set for traffic light: {tls_id}\n")
 
-            simulation_end_time = 100
+            simulation_end_time = 700
 
             # Run the simulation
             while (traci.simulation.getTime() < simulation_end_time and 
