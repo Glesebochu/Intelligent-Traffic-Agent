@@ -1,0 +1,181 @@
+Lane Information for Traffic Lights
+==================================================
+Detected Traffic Lights: ('1110429653', '1110429678', '1205721105', '1205721115', '262622201', '271723052', '463219694', '463219697', '463219707', '463219708', '533591148', '533591150', '533591154', '533591187', '548237807', '585168279', '627616228', '773653576')
+
+Traffic Light: 1110429653
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=758195508_0, Length=0.20m, Vehicles=0
+  - Lane 1: ID=758195508_1, Length=0.20m, Vehicles=0
+  - Lane 1: ID=758195508_1, Length=0.20m, Vehicles=0
+  - Lane 3: ID=761303513_0, Length=216.62m, Vehicles=0
+  - Lane 4: ID=761303513_1, Length=216.62m, Vehicles=0
+  - Lane 5: ID=761303513_2, Length=216.62m, Vehicles=0
+
+Traffic Light: 1110429678
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=758195509_0, Length=15.89m, Vehicles=0
+  - Lane 0: ID=758195509_0, Length=15.89m, Vehicles=0
+  - Lane 2: ID=758195509_1, Length=15.89m, Vehicles=0
+  - Lane 3: ID=758195512_0, Length=0.20m, Vehicles=0
+  - Lane 4: ID=758195512_1, Length=0.20m, Vehicles=0
+  - Lane 4: ID=758195512_1, Length=0.20m, Vehicles=0
+
+Traffic Light: 1205721105
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=104503672#6_0, Length=4.84m, Vehicles=0
+  - Lane 0: ID=104503672#6_0, Length=4.84m, Vehicles=0
+  - Lane 2: ID=104503672#6_1, Length=4.84m, Vehicles=0
+  - Lane 3: ID=755254711_0, Length=0.20m, Vehicles=0
+  - Lane 4: ID=755254711_1, Length=0.20m, Vehicles=0
+  - Lane 4: ID=755254711_1, Length=0.20m, Vehicles=0
+
+Traffic Light: 1205721115
+--------------------------------------------------
+Controlled Lanes (5):
+  - Lane 0: ID=758195507#1_0, Length=167.99m, Vehicles=0
+  - Lane 1: ID=758195507#1_1, Length=167.99m, Vehicles=0
+  - Lane 2: ID=758195507#1_2, Length=167.99m, Vehicles=0
+  - Lane 3: ID=761303515_0, Length=0.20m, Vehicles=0
+  - Lane 4: ID=761303515_1, Length=0.20m, Vehicles=0
+
+Traffic Light: 262622201
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=1227322505_0, Length=2.00m, Vehicles=0
+  - Lane 0: ID=1227322505_0, Length=2.00m, Vehicles=0
+  - Lane 2: ID=1227322505_1, Length=2.00m, Vehicles=0
+  - Lane 3: ID=221437407#8_0, Length=0.20m, Vehicles=0
+  - Lane 4: ID=221437407#8_1, Length=0.20m, Vehicles=0
+  - Lane 4: ID=221437407#8_1, Length=0.20m, Vehicles=0
+
+Traffic Light: 271723052
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=95810163_0, Length=618.11m, Vehicles=0
+  - Lane 0: ID=95810163_0, Length=618.11m, Vehicles=0
+  - Lane 2: ID=95810163_1, Length=618.11m, Vehicles=0
+  - Lane 3: ID=757843855_0, Length=0.20m, Vehicles=0
+  - Lane 4: ID=757843855_1, Length=0.20m, Vehicles=0
+  - Lane 4: ID=757843855_1, Length=0.20m, Vehicles=0
+
+Traffic Light: 463219694
+--------------------------------------------------
+Controlled Lanes (4):
+  - Lane 0: ID=42656208#4_0, Length=6.64m, Vehicles=0
+  - Lane 1: ID=42656208#4_1, Length=6.64m, Vehicles=0
+  - Lane 2: ID=758195567#2_0, Length=5.53m, Vehicles=0
+  - Lane 3: ID=758195567#2_1, Length=5.53m, Vehicles=0
+
+Traffic Light: 463219697
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=758195568#1_0, Length=0.20m, Vehicles=0
+  - Lane 0: ID=758195568#1_0, Length=0.20m, Vehicles=0
+  - Lane 2: ID=758195568#1_1, Length=0.20m, Vehicles=0
+  - Lane 3: ID=45902063_0, Length=1.03m, Vehicles=0
+  - Lane 4: ID=45902063_1, Length=1.03m, Vehicles=0
+  - Lane 4: ID=45902063_1, Length=1.03m, Vehicles=0
+
+Traffic Light: 463219707
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=200591490#0_0, Length=0.20m, Vehicles=0
+  - Lane 1: ID=200591490#0_1, Length=0.20m, Vehicles=0
+  - Lane 1: ID=200591490#0_1, Length=0.20m, Vehicles=0
+  - Lane 3: ID=151430204#5_0, Length=0.31m, Vehicles=0
+  - Lane 3: ID=151430204#5_0, Length=0.31m, Vehicles=0
+  - Lane 5: ID=151430204#5_1, Length=0.31m, Vehicles=0
+
+Traffic Light: 463219708
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=49416990#4_0, Length=8.57m, Vehicles=0
+  - Lane 0: ID=49416990#4_0, Length=8.57m, Vehicles=0
+  - Lane 2: ID=49416990#4_1, Length=8.57m, Vehicles=0
+  - Lane 3: ID=151430204#6_0, Length=0.20m, Vehicles=0
+  - Lane 4: ID=151430204#6_1, Length=0.20m, Vehicles=0
+  - Lane 4: ID=151430204#6_1, Length=0.20m, Vehicles=0
+
+Traffic Light: 533591148
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=758195525_0, Length=2.54m, Vehicles=0
+  - Lane 1: ID=758195525_1, Length=2.54m, Vehicles=0
+  - Lane 1: ID=758195525_1, Length=2.54m, Vehicles=0
+  - Lane 3: ID=758195567#1_0, Length=0.20m, Vehicles=0
+  - Lane 3: ID=758195567#1_0, Length=0.20m, Vehicles=0
+  - Lane 5: ID=758195567#1_1, Length=0.20m, Vehicles=0
+
+Traffic Light: 533591150
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=42656207#2_0, Length=1.83m, Vehicles=0
+  - Lane 0: ID=42656207#2_0, Length=1.83m, Vehicles=0
+  - Lane 2: ID=42656207#2_1, Length=1.83m, Vehicles=0
+  - Lane 3: ID=1173967663#1_0, Length=17.79m, Vehicles=0
+  - Lane 4: ID=1173967663#1_1, Length=17.79m, Vehicles=0
+  - Lane 4: ID=1173967663#1_1, Length=17.79m, Vehicles=0
+
+Traffic Light: 533591154
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=200591490#4_0, Length=0.20m, Vehicles=0
+  - Lane 0: ID=200591490#4_0, Length=0.20m, Vehicles=0
+  - Lane 2: ID=200591490#4_1, Length=0.20m, Vehicles=0
+  - Lane 3: ID=104503678_0, Length=1.57m, Vehicles=0
+  - Lane 4: ID=104503678_1, Length=1.57m, Vehicles=0
+  - Lane 4: ID=104503678_1, Length=1.57m, Vehicles=0
+
+Traffic Light: 533591187
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=758195513#1_0, Length=0.36m, Vehicles=0
+  - Lane 0: ID=758195513#1_0, Length=0.36m, Vehicles=0
+  - Lane 2: ID=758195513#1_1, Length=0.36m, Vehicles=0
+  - Lane 3: ID=758195510_0, Length=0.20m, Vehicles=0
+  - Lane 4: ID=758195510_1, Length=0.20m, Vehicles=0
+  - Lane 4: ID=758195510_1, Length=0.20m, Vehicles=0
+
+Traffic Light: 548237807
+--------------------------------------------------
+Controlled Lanes (7):
+  - Lane 0: ID=43456241#2_0, Length=1.73m, Vehicles=0
+  - Lane 0: ID=43456241#2_0, Length=1.73m, Vehicles=0
+  - Lane 2: ID=43456241#2_1, Length=1.73m, Vehicles=0
+  - Lane 3: ID=761303514_0, Length=0.20m, Vehicles=0
+  - Lane 4: ID=761303514_1, Length=0.20m, Vehicles=0
+  - Lane 4: ID=761303514_1, Length=0.20m, Vehicles=0
+  - Lane 4: ID=761303514_1, Length=0.20m, Vehicles=0
+
+Traffic Light: 585168279
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=761043762_0, Length=0.20m, Vehicles=0
+  - Lane 1: ID=761043762_1, Length=0.20m, Vehicles=0
+  - Lane 1: ID=761043762_1, Length=0.20m, Vehicles=0
+  - Lane 3: ID=758195569#1_0, Length=1.08m, Vehicles=0
+  - Lane 3: ID=758195569#1_0, Length=1.08m, Vehicles=0
+  - Lane 5: ID=758195569#1_1, Length=1.08m, Vehicles=0
+
+Traffic Light: 627616228
+--------------------------------------------------
+Controlled Lanes (6):
+  - Lane 0: ID=221437407#7_0, Length=14.56m, Vehicles=0
+  - Lane 0: ID=221437407#7_0, Length=14.56m, Vehicles=0
+  - Lane 2: ID=221437407#7_1, Length=14.56m, Vehicles=0
+  - Lane 3: ID=1177318559#0_0, Length=0.20m, Vehicles=0
+  - Lane 4: ID=1177318559#0_1, Length=0.20m, Vehicles=0
+  - Lane 4: ID=1177318559#0_1, Length=0.20m, Vehicles=0
+
+Traffic Light: 773653576
+--------------------------------------------------
+Controlled Lanes (5):
+  - Lane 0: ID=151430188#1_0, Length=122.94m, Vehicles=0
+  - Lane 0: ID=151430188#1_0, Length=122.94m, Vehicles=0
+  - Lane 0: ID=151430188#1_0, Length=122.94m, Vehicles=0
+  - Lane 3: ID=151430188#1_1, Length=122.94m, Vehicles=0
+  - Lane 4: ID=151430188#1_2, Length=122.94m, Vehicles=0
+

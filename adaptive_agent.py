@@ -3,35 +3,72 @@ import os
 from traci._trafficlight import Logic, Phase
 
 sumoBinary = "sumo-gui"
-sumoConfig = "basemap/basemap.sumocfg"  # Your configuration file
+sumoConfig = "basemap/basemap.sumocfg"  
 
 log_file = "adaptive_tl_log.txt"
 metrics_file = "adaptive_metrics.txt"
 
-# Performance metrics
 vehicle_travel_times = {}
 vehicle_departure_times = {}
 total_waiting_time = 0
 queue_lengths = {}
 
-# Adaptive logic configuration
+
 MIN_GREEN_TIME = 5
 MAX_GREEN_TIME = 30
 YELLOW_TIME = 3
 
+def group_lanes_by_direction(controlled_lanes):
+    lane_groups = {}
+
+    for lane in controlled_lanes:
+        # Group lanes by their directions and index
+        # For example: 'lane_1_n', 'lane_2_n' -> 'n'
+        direction = lane.split("_")[-1]
+        if direction not in lane_groups:
+            lane_groups[direction] = []
+        lane_groups[direction].append(lane)
+
+    return list(lane_groups.values())
+
+
 def set_adaptive_timing(tls_id):
+    # Get controlled lanes and group them
     controlled_lanes = traci.trafficlight.getControlledLanes(tls_id)
-    green_time = calculate_green_time(controlled_lanes)
+    lane_groups = group_lanes_by_direction(controlled_lanes)
+    num_lanes = len(controlled_lanes)
 
-    phases = [
-        Phase(green_time, "G"),  # Green phase
-        Phase(YELLOW_TIME, "y"),  # Yellow phase
-        Phase(green_time, "rG"),  # Reverse green phase
-        Phase(YELLOW_TIME, "ry"),  # Reverse yellow phase
-    ]
+    phases = []
+    adaptive_mode = False
 
-    logic = Logic("adaptive_program", 0, 0, phases)
+    for group_index, lane_group in enumerate(lane_groups):
+        # Check if any vehicle is waiting in this lane group
+        total_queue = sum(traci.lane.getLastStepVehicleNumber(lane) for lane in lane_group)
+
+        if total_queue > 0:
+            adaptive_mode = True
+            green_phase = "".join(["G" if lane in lane_group else "r" for lane in controlled_lanes])
+            yellow_phase = "".join(["y" if lane in lane_group else "r" for lane in controlled_lanes])
+
+            green_time = max(5, min(total_queue * 2, 30))  # Min 5s, Max 30s
+            phases.append(Phase(green_time, green_phase))
+            phases.append(Phase(3, yellow_phase))
+
+    if not adaptive_mode:
+        # Fallback to fixed timing if no vehicles are detected
+        for group_index, lane_group in enumerate(lane_groups):
+            fixed_green_phase = "".join(["G" if lane in lane_group else "r" for lane in controlled_lanes])
+            yellow_phase = "".join(["y" if lane in lane_group else "r" for lane in controlled_lanes])
+            phases.append(Phase(10, fixed_green_phase))  # Fixed 10s green
+            phases.append(Phase(3, yellow_phase))
+
+    # Safety all-red phase
+    phases.append(Phase(3, "r" * num_lanes))
+
+    logic = Logic("adaptive_program_v3", 0, 0, phases)
     traci.trafficlight.setProgramLogic(tls_id, logic)
+    print(f"Adaptive timing set for traffic light {tls_id} (adaptive mode: {adaptive_mode}).")
+
 
 def calculate_green_time(controlled_lanes):
     total_queue = sum(traci.lane.getLastStepHaltingNumber(lane) for lane in controlled_lanes)
