@@ -10,40 +10,40 @@ metrics_file = "baseline_metrics.txt"
 
 # Traffic light phase definitions for intersections
 fixed_phases_dict = {
-    1: [Phase(10, "G"),# North-South green, East-West red for 10 seconds
-        Phase(3, "y"),# North-South yellow, East-West red for 3 seconds
-        Phase(10, "r"),# East-West green, North-South red for 10 seconds
-        Phase(3, "r")# East-West yellow, North-South red for 3 seconds
+    1: [Phase(20, "G"),# North-South green, East-West red for 10 seconds
+        Phase(6, "y"),# North-South yellow, East-West red for 3 seconds
+        Phase(20, "r"),# East-West green, North-South red for 10 seconds
+        Phase(6, "r")# East-West yellow, North-South red for 3 seconds
         ],
-    2: [Phase(10, "Gr"),
-        Phase(3, "yr"),
-        Phase(10, "rG"),
-        Phase(3, "ry")
+    2: [Phase(20, "Gr"),
+        Phase(6, "yr"),
+        Phase(20, "rG"),
+        Phase(6, "ry")
         ],  
-    3: [Phase(10, "Grr"),
-        Phase(3, "yrr"),
-        Phase(10, "rGr"),
-        Phase(3, "ryr")
+    3: [Phase(20, "Grr"),
+        Phase(6, "yrr"),
+        Phase(20, "rGr"),
+        Phase(6, "ryr")
         ],   
-    4: [Phase(10, "Grrr"),
-        Phase(3, "yrrr"),
-        Phase(10, "rGGG"),
-        Phase(3, "rrrr")
+    4: [Phase(20, "Grrr"),
+        Phase(6, "yrrr"),
+        Phase(20, "rGGG"),
+        Phase(6, "rrrr")
+        ], 
+    5: [Phase(20, "Grrrr"),
+        Phase(6, "yrrrr"),
+        Phase(20, "rGGGG"),
+        Phase(6, "rrrrr")
         ],   
-    5: [Phase(10, "Grrrr"),
-        Phase(3, "yrrrr"),
-        Phase(10, "rGGGG"),
-        Phase(3, "rrrrr")
-        ],   
-    6: [Phase(10, "GGGrrr"),
-        Phase(3, "yyyrrr"),
-        Phase(10, "rrrGGG"),
-        Phase(3, "rrryyy")
+    6: [Phase(20, "GGGrrr"),
+        Phase(6, "yyyrrr"),
+        Phase(20, "rrrGGG"),
+        Phase(6, "rrryyy")
         ],
-    7: [Phase(10, "GGGrrrr"),
-        Phase(3, "yyyrrrr"),
-        Phase(10, "rrrGGGG"),
-        Phase(3, "rrryyyy")
+    7: [Phase(20, "GGGrrrr"),
+        Phase(6, "yyyrrrr"),
+        Phase(20, "rrrGGGG"),
+        Phase(6, "rrryyyy")
         ],
 
 }
