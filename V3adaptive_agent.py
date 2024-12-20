@@ -148,7 +148,7 @@ def get_road_queues(tls_id, step):
     tl_lanes = traci.trafficlight.getControlledLanes(tls_id)
     seen_lanes = set()  # Avoid duplicate lane processing
 
-    print(f"Step {step} - Traffic light {tls_id} controls lanes: {tl_lanes}")
+    #print(f"Step {step} - Traffic light {tls_id} controls lanes: {tl_lanes}")
 
     for lane in tl_lanes:
         if lane in seen_lanes:
@@ -164,7 +164,7 @@ def get_road_queues(tls_id, step):
         queue_lengths[road_id] += halting_vehicles
 
         # Debug: Print lane-specific queue information
-        print(f"  Lane {lane} (road {road_id}): {halting_vehicles} vehicles halting.")
+        #print(f"  Lane {lane} (road {road_id}): {halting_vehicles} vehicles halting.")
 
     # Debug: Print aggregated queue lengths by road
     print(f"Aggregated queue lengths at {tls_id}: {queue_lengths}\n")
@@ -180,9 +180,9 @@ def get_green_roads(state, tls_id):
     for i, signal in enumerate(state):
         if signal in ['G', 'g']:
             road_id = controlled_lanes[i].split("_")[0]
-            green_roads.add(road_id)
+            green_roads.add(road_id) #no effect if the road is already present.
     
-    return green_roads
+    return green_roads #ids
 
 def calculate_adaptive_duration(base_duration, green_roads, queue_lengths):
     """Calculate adaptive duration based on queue ratios."""
@@ -231,6 +231,7 @@ def run_adaptive_agent():
             
             queue_lengths = get_road_queues(tls_id, step)
             total_queue = sum(queue_lengths.values())
+            #print (f"Total Queue for traffic light {tls_id} = {total_queue}")
             
             if total_queue > QUEUE_THRESHOLD:
                 # Create adaptive phases
@@ -243,6 +244,7 @@ def run_adaptive_agent():
                         adaptive_phases.append(Phase(base_duration, state))
                     else:
                         green_roads = get_green_roads(state, tls_id)
+                        print(f"Green roads: {green_roads} at {tls_id} using base state {state}")
                         new_duration = calculate_adaptive_duration(
                             base_duration, green_roads, queue_lengths)
                         adaptive_phases.append(Phase(new_duration, state))
