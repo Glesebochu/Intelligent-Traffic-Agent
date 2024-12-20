@@ -3,7 +3,7 @@ import logging
 
 # Configure logging
 logging.basicConfig(
-    filename="simulation_log.txt",  # Log file for storing simulation outputs
+    filename="Logs/simulation_log.txt",  # Log file for storing simulation outputs
     level=logging.INFO,             # Log level (INFO for standard outputs)
     format="%(asctime)s - %(message)s",  # Log format with timestamps
     filemode="w",                    # Overwrite log file every time the script runs

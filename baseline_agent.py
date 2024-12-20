@@ -5,8 +5,8 @@ from traci._trafficlight import Logic, Phase
 sumoBinary = "sumo-gui"
 sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"  # Your configuration file
 
-log_file = "fixed_tl_log.txt"
-metrics_file = "baseline_metrics.txt"
+log_file = "Logs/fixed_tl_log.txt"
+metrics_file = "Logs/baseline_metrics.txt"
 
 # Traffic light phase definitions for intersections
 fixed_phases_dict = {

@@ -3,7 +3,7 @@ import traci
 # Configuration
 sumoBinary = "sumo-gui"
 sumoConfig = "basemap/basemap.sumocfg"
-output_file = "lane_info.txt"
+output_file = "Logs/lane_info.txt"
 
 def extract_lane_info():
     try:
