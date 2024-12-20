@@ -7,4 +7,5 @@
         <begin value="0"/>
         <end value="1000"/>
     </time>
+    <gui-settings-file value="view.settings.xml"/>
 </configuration>

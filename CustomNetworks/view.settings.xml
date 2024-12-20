@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<viewsettings>
+    <!-- Use the 'real world' theme -->
+    <scheme name="real world"/>
+    
+    <!-- Ensure vehicles are drawn with a constant size -->
+    <vehicleSize fixed="true" />
+
+    <!-- Set vehicle color based on waiting time -->
+    <colorByWaitingTime enabled="true" />
+</viewsettings>
