@@ -2,8 +2,8 @@
 
 <!-- generated on 2024-12-20 09:39:34.964533 by randomTrips.py UNKNOWN
 <configuration>
-    <net-file value="2LaneNetwork.net.xml"/>
-    <output-trip-file value="2LaneRoute.rou.xml"/>
+    <net-file value="1LaneNetwork.net.xml"/>
+    <output-trip-file value="1LaneRoute.rou.xml"/>
     <end value="1000.0"/>
     <period value="1.0"/>
 </configuration>

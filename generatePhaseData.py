@@ -183,7 +183,7 @@ if __name__ == "__main__":
 
 # # Configuration
 # sumoBinary = "sumo-gui"
-# sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"  # Replace with your SUMO configuration file
+# sumoConfig = "CustomNetworks/oneLaneMap.sumocfg"  # Replace with your SUMO configuration file
 # output_file = "traffic_light_data.json"
 
 # # Default phase durations

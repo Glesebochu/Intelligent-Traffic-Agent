@@ -5,7 +5,7 @@
 
 # # Configuration
 # sumoBinary = "sumo-gui"
-# sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"
+# sumoConfig = "CustomNetworks/oneLaneMap.sumocfg"
 # adaptive_phases_file = "adaptive_fixed_phases.json"
 
 # # Adaptive control parameters
@@ -129,7 +129,7 @@ import os
 # Ensure file paths are absolute and robust
 script_dir = os.path.dirname(os.path.abspath(__file__))
 sumoBinary = "sumo-gui"
-sumoConfig = os.path.join(script_dir, "CustomNetworks", "twoLaneMap.sumocfg")
+sumoConfig = os.path.join(script_dir, "CustomNetworks", "oneLaneMap.sumocfg")
 adaptive_phases_file = os.path.join(script_dir, "adaptive_fixed_phases.json")
 
 # Ensure adaptive phases file exists
@@ -276,7 +276,7 @@ if __name__ == "__main__":
 
 # # Configuration
 # sumoBinary = "sumo-gui"
-# sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"
+# sumoConfig = "CustomNetworks/oneLaneMap.sumocfg"
 # adaptive_phases_file = "adaptive_fixed_phases.json"
 # traffic_light_data_file = "traffic_light_data2c.json"  # For controlled lanes and roads
 

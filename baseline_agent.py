@@ -3,7 +3,7 @@ import os
 from traci._trafficlight import Logic, Phase
 
 sumoBinary = "sumo-gui"
-sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"  # Your configuration file
+sumoConfig = "CustomNetworks/oneLaneMap.sumocfg"  # Your configuration file
 
 log_file = "Logs/fixed_tl_log.txt"
 metrics_file = "Logs/baseline_metrics.txt"
