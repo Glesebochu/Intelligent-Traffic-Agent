@@ -5,7 +5,7 @@ from traci._trafficlight import Logic, Phase
 
 # Configuration
 sumoBinary = "sumo-gui"
-sumoConfig = "basemap/basemap.sumocfg"
+sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"
 traffic_light_data_file = "traffic_light_data2c.json"
 
 # Adaptive control parameters

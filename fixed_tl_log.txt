@@ -1,22 +1,14 @@
 Traffic Light Phase Log
 ========================================
-Detected Traffic Lights: ('1110429653', '1110429678', '1205721105', '1205721115', '262622201', '271723052', '463219694', '463219697', '463219707', '463219708', '533591148', '533591150', '533591154', '533591187', '548237807', '585168279', '627616228', '773653576')
-Dynamic fixed timing set for traffic light: 1110429653
-Dynamic fixed timing set for traffic light: 1110429678
-Dynamic fixed timing set for traffic light: 1205721105
-Dynamic fixed timing set for traffic light: 1205721115
-Dynamic fixed timing set for traffic light: 262622201
-Dynamic fixed timing set for traffic light: 271723052
-Dynamic fixed timing set for traffic light: 463219694
-Dynamic fixed timing set for traffic light: 463219697
-Dynamic fixed timing set for traffic light: 463219707
-Dynamic fixed timing set for traffic light: 463219708
-Dynamic fixed timing set for traffic light: 533591148
-Dynamic fixed timing set for traffic light: 533591150
-Dynamic fixed timing set for traffic light: 533591154
-Dynamic fixed timing set for traffic light: 533591187
-Dynamic fixed timing set for traffic light: 548237807
-Dynamic fixed timing set for traffic light: 585168279
-Dynamic fixed timing set for traffic light: 627616228
-Dynamic fixed timing set for traffic light: 773653576
+Detected Traffic Lights: ('1', '2', '20', '204', '22', '24', '558', '577', '60', '66')
+Dynamic fixed timing set for traffic light: 1
+Dynamic fixed timing set for traffic light: 2
+Dynamic fixed timing set for traffic light: 20
+Dynamic fixed timing set for traffic light: 204
+Dynamic fixed timing set for traffic light: 22
+Dynamic fixed timing set for traffic light: 24
+Dynamic fixed timing set for traffic light: 558
+Dynamic fixed timing set for traffic light: 577
+Dynamic fixed timing set for traffic light: 60
+Dynamic fixed timing set for traffic light: 66
 Simulation ended.

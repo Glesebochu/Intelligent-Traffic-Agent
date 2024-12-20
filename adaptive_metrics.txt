@@ -1,23 +1,15 @@
 Adaptive Traffic Control Metrics
 ========================================
-- Average Vehicle Travel Time: 133.73 seconds
-- Total Waiting Time: 6181.00 seconds
+- Average Vehicle Travel Time: 77.31 seconds
+- Total Waiting Time: 14332.00 seconds
 - Queue Lengths at Traffic Lights:
-  1110429653: 0 vehicles
-  1110429678: 0 vehicles
-  1205721105: 0 vehicles
-  1205721115: 0 vehicles
-  262622201: 0 vehicles
-  271723052: 0 vehicles
-  463219694: 0 vehicles
-  463219697: 0 vehicles
-  463219707: 0 vehicles
-  463219708: 0 vehicles
-  533591148: 0 vehicles
-  533591150: 0 vehicles
-  533591154: 0 vehicles
-  533591187: 0 vehicles
-  548237807: 0 vehicles
-  585168279: 0 vehicles
-  627616228: 0 vehicles
-  773653576: 0 vehicles
+  12: 0 vehicles
+  122: 0 vehicles
+  14: 3 vehicles
+  18: 0 vehicles
+  24: 0 vehicles
+  324: 0 vehicles
+  343: 0 vehicles
+  360: 0 vehicles
+  503: 0 vehicles
+  591: 0 vehicles
