@@ -136,7 +136,6 @@ adaptive_phases_file = os.path.join(script_dir, "adaptive_fixed_phases.json")
 if not os.path.exists(adaptive_phases_file):
     raise FileNotFoundError(f"Adaptive phases file not found: {adaptive_phases_file}")
 
-
 # Adaptive control parameters
 MIN_GREEN = 15
 MAX_GREEN = 45
@@ -176,7 +175,9 @@ def calculate_adaptive_duration(base_duration, green_roads, queue_lengths):
     if total_queue == 0:
         return base_duration
     
-    green_queue = sum(queue_lengths.get(road, 0) for road in green_roads)
+    # Ensure all roads in green_roads exist in queue_lengths
+    green_queue = sum(queue_lengths[road] for road in green_roads if road in queue_lengths)
+
     if green_queue == 0:
         return MIN_GREEN
     
