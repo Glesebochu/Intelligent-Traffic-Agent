@@ -1,15 +1,15 @@
 Baseline Traffic Control Metrics
 ========================================
--Average Vehicle Travel Time: 185.01seconds
--Total Waiting Time: 4599398.00seconds
+-Average Vehicle Travel Time: 131.46seconds
+-Total Waiting Time: 584619.00seconds
 -Queue Lengths at Traffic Lights:
- 1: 81 vehicles
- 2: 160 vehicles
- 20: 1 vehicles
- 204: 56 vehicles
- 22: 9 vehicles
- 24: 10 vehicles
- 558: 29 vehicles
- 577: 2 vehicles
- 60: 56 vehicles
- 66: 13 vehicles
+ 12: 20 vehicles
+ 122: 18 vehicles
+ 14: 9 vehicles
+ 18: 12 vehicles
+ 24: 12 vehicles
+ 324: 18 vehicles
+ 343: 8 vehicles
+ 360: 6 vehicles
+ 503: 3 vehicles
+ 591: 8 vehicles

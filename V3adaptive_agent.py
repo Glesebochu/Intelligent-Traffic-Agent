@@ -6,112 +6,95 @@ from traci._trafficlight import Logic, Phase
 # Configuration
 sumoBinary = "sumo-gui"
 sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"
-traffic_light_data_file = "traffic_light_data2c.json"
+adaptive_phases_file = "adaptive_fixed_phases.json"
 
 # Adaptive control parameters
 MIN_GREEN = 10
 MAX_GREEN = 50
-YELLOW_DURATION = 6  # Keeping your baseline yellow duration
-QUEUE_THRESHOLD = 3
+QUEUE_THRESHOLD = 3  # Below this, revert to fixed-time schedule
+STEP_INTERVAL = 3  # Frequency of adapting phases (in simulation steps)
 
-# Base phase patterns (same as your baseline)
-fixed_phases_dict = {
-    1: [("G", 20), ("y", 6), ("r", 20), ("r", 6)],
-    2: [("Gr", 20), ("yr", 6), ("rG", 20), ("ry", 6)],
-    3: [("Grr", 20), ("yrr", 6), ("rGr", 20), ("ryr", 6)],
-    4: [("Grrr", 20), ("yrrr", 6), ("rGGG", 20), ("rrrr", 6)],
-    5: [("Grrrr", 20), ("yrrrr", 6), ("rGGGG", 20), ("rrrrr", 6)],
-    6: [("GGGrrr", 20), ("yyyrrr", 6), ("rrrGGG", 20), ("rrryyy", 6)],
-    7: [("GGGrrrr", 20), ("yyyrrrr", 6), ("rrrGGGG", 20), ("rrryyyy", 6)]
-}
+def get_dynamic_phases(tls_id, fixed_phases, queue_lengths):
+    """Adjust phase durations dynamically based on queue lengths."""
+    dynamic_phases = []
+    total_queue = sum(queue_lengths.values())
 
-def calculate_adaptive_duration(state, traffic_light_info):
-    """Calculate adaptive duration for a green phase."""
-    total_queue = sum(traffic_light_info["road_queues"].values())
-    
-    if total_queue < QUEUE_THRESHOLD:
-        return 20  # Return default duration if queue is small
-    
-    # Calculate queue for lanes that have green in this phase
-    controlled_lanes = traffic_light_info["controlled_lanes"]
-    phase_queue = sum(
-        traffic_light_info["lane_queues"][controlled_lanes[i]]
-        for i, light in enumerate(state)
-        if light == 'G'
-    )
-    
-    if total_queue > 0 and phase_queue > 0:
-        duration = max(
-            MIN_GREEN,
-            min(MAX_GREEN, (phase_queue / total_queue) * MAX_GREEN)
-        )
-    else:
-        duration = MIN_GREEN
-        
-    return duration
+    # Access phases directly from the fixed_phases dictionary
+    for phase in fixed_phases[tls_id]:  # List of phases for this TLS ID
+        phase_state = phase["state"]
+        phase_duration = phase["duration"]
 
-def get_adaptive_phases(num_lanes, traffic_light_info):
-    """Get adaptive phases based on number of lanes."""
-    if num_lanes not in fixed_phases_dict:
-        return None
+        if "G" in phase_state:  # Adjust green phases dynamically
+            # Calculate the total queue for the lanes with green signals
+            green_queue = sum(
+                queue_lengths.get(road_id, 0)
+                for road_id in queue_lengths.keys()
+                if any(phase_state[i] == "G" for i, road_id in enumerate(queue_lengths.keys()))
+            )
+            # Adjust green duration proportionally
+            if total_queue > 0 and green_queue > 0:
+                adjusted_duration = max(
+                    MIN_GREEN,
+                    min(MAX_GREEN, (green_queue / total_queue) * MAX_GREEN),
+                )
+                dynamic_phases.append(Phase(int(adjusted_duration), phase_state))
+            else:
+                dynamic_phases.append(Phase(phase_duration, phase_state))
+        else:  # Keep yellow/red phases fixed
+            dynamic_phases.append(Phase(phase_duration, phase_state))
     
-    base_patterns = fixed_phases_dict[num_lanes]
-    adaptive_phases = []
-    
-    for state, default_duration in base_patterns:
-        if 'G' in state:  # If it's a green phase
-            duration = calculate_adaptive_duration(state, traffic_light_info)
-        else:  # Keep yellow and red phase durations fixed
-            duration = default_duration
-            
-        adaptive_phases.append(Phase(duration, state))
-    
-    return adaptive_phases
+    return dynamic_phases
 
-def set_adaptive_timing(tls_id, traffic_light_info):
+def set_adaptive_timing(tls_id, fixed_phases, queue_lengths):
     """Set adaptive traffic light timing."""
-    num_lanes = len(traffic_light_info["controlled_lanes"])
-    phases = get_adaptive_phases(num_lanes, traffic_light_info)
-    
-    if phases:
-        logic = Logic("adaptive_program", 0, 0, phases)
-        traci.trafficlight.setProgramLogic(tls_id, logic)
+    dynamic_phases = get_dynamic_phases(tls_id, fixed_phases, queue_lengths)
+    logic = Logic("adaptive_program", 0, 0, dynamic_phases)
+    traci.trafficlight.setProgramLogic(tls_id, logic)
 
 def run_adaptive_agent():
     """Main function to run the adaptive traffic control agent."""
     traci.start([sumoBinary, "-c", sumoConfig])
-    
-    # Load traffic light data
-    traffic_light_data = load_traffic_light_data(traffic_light_data_file)
-    
+
+    # Load fixed phase data
+    fixed_phases = load_adaptive_phases(adaptive_phases_file)
+
     # Get all traffic lights
     tls_ids = traci.trafficlight.getIDList()
-    
+
     simulation_end_time = 1000
+    step = 0
     while traci.simulation.getTime() < simulation_end_time:
         traci.simulationStep()
-        
-        for tls_id in tls_ids:
-            # Update queue lengths
-            traffic_light_info = traffic_light_data[tls_id]
-            
-            # Update lane queues
-            for lane in traffic_light_info["controlled_lanes"]:
-                traffic_light_info["lane_queues"][lane] = \
-                    traci.lane.getLastStepHaltingNumber(lane)
-            
-            # Update road queues
-            for road_id, lanes in traffic_light_info["roads"].items():
-                traffic_light_info["road_queues"][road_id] = \
-                    sum(traffic_light_info["lane_queues"][lane] for lane in lanes)
-            
-            # Set adaptive timing
-            set_adaptive_timing(tls_id, traffic_light_info)
-    
+        step += 1
+
+        # Every STEP_INTERVAL steps, adapt the timing
+        if step % STEP_INTERVAL == 0:
+            for tls_id in tls_ids:
+                # Dynamically update queue lengths
+                queue_lengths = {}
+                controlled_lanes = traci.trafficlight.getControlledLanes(tls_id)
+                for lane in controlled_lanes:
+                    road_id = lane.split("_")[0]  # Extract road ID from lane
+                    queue_lengths[road_id] = queue_lengths.get(road_id, 0) + traci.lane.getLastStepHaltingNumber(lane)
+
+                # Check if total queue exceeds threshold
+                total_queue = sum(queue_lengths.values())
+                if total_queue > QUEUE_THRESHOLD:
+                    # Adjust timing adaptively
+                    set_adaptive_timing(tls_id, fixed_phases, queue_lengths)
+                else:
+                    # Revert to fixed-time schedule
+                    fixed_phases_data = [
+                        Phase(phase["duration"], phase["state"])
+                        for phase in fixed_phases[tls_id]
+                    ]
+                    logic = Logic("fixed_program", 0, 0, fixed_phases_data)
+                    traci.trafficlight.setProgramLogic(tls_id, logic)
+
     traci.close()
 
-def load_traffic_light_data(file_path):
-    """Load traffic light data from JSON file."""
+def load_adaptive_phases(file_path):
+    """Load traffic light phases directly from JSON."""
     with open(file_path, "r") as f:
         return json.load(f)
 
