@@ -129,7 +129,7 @@ import os
 # Ensure file paths are absolute and robust
 script_dir = os.path.dirname(os.path.abspath(__file__))
 sumoBinary = "sumo-gui"
-sumoConfig = os.path.join(script_dir, "CustomNetworks", "oneLaneMap.sumocfg")
+sumoConfig = os.path.join(script_dir, "CustomNetworks", "twoLaneMap.sumocfg")
 adaptive_phases_file = os.path.join(script_dir, "adaptive_fixed_phases.json")
 
 # Ensure adaptive phases file exists

@@ -1,210 +1,206 @@
 {
-  "12": [
+  "1": [
     {
       "duration": 30,
-      "state": "GGgggrrrrrrrrrrGGGggrrrrr"
+      "state": "GGGggrrrrrGGGggrrrrr"
     },
     {
       "duration": 3,
-      "state": "yyyyyrrrrrrrrrryyyyyrrrrr"
+      "state": "yyyyyrrrrryyyyyrrrrr"
     },
     {
       "duration": 30,
-      "state": "rrrrrgGgggrrrrrrrrrrGGGgg"
+      "state": "rrrrrGGGggrrrrrGGGgg"
     },
     {
       "duration": 3,
-      "state": "rrrrryyyyyrrrrrrrrrryyyyy"
-    },
-    {
-      "duration": 30,
-      "state": "rrrrrrrrrrGGGGgGrrrrrrrrr"
-    },
-    {
-      "duration": 3,
-      "state": "rrrrrrrrrryyyyyGrrrrrrrrr"
-    }
-  ],
-  "122": [
-    {
-      "duration": 30,
-      "state": "rrrGGgGgg"
-    },
-    {
-      "duration": 3,
-      "state": "rrrGyyyyy"
-    },
-    {
-      "duration": 30,
-      "state": "GGgGrrrrr"
-    },
-    {
-      "duration": 3,
-      "state": "yyyGrrrrr"
+      "state": "rrrrryyyyyrrrrryyyyy"
     }
   ],
   "14": [
     {
       "duration": 30,
-      "state": "rrrGGgGgg"
+      "state": "GGggrrrGGGg"
     },
     {
       "duration": 3,
-      "state": "rrrGyyyyy"
+      "state": "yyyyrrrGyyy"
     },
     {
       "duration": 30,
-      "state": "GGgGrrrrr"
+      "state": "rrrrGGgGrrr"
     },
     {
       "duration": 3,
-      "state": "yyyGrrrrr"
+      "state": "rrrryyyGrrr"
     }
   ],
-  "18": [
+  "196": [
     {
       "duration": 30,
-      "state": "GGggrrrrGGggrrrr"
+      "state": "rrrrrGGGggrrrrrGGGgg"
     },
     {
       "duration": 3,
-      "state": "yyyyrrrryyyyrrrr"
+      "state": "rrrrryyyyyrrrrryyyyy"
     },
     {
       "duration": 30,
-      "state": "rrrrGGggrrrrGGgg"
+      "state": "GGGggrrrrrGGGggrrrrr"
     },
     {
       "duration": 3,
-      "state": "rrrryyyyrrrryyyy"
+      "state": "yyyyyrrrrryyyyyrrrrr"
     }
   ],
-  "24": [
+  "344": [
     {
       "duration": 30,
-      "state": "GrrrrrrrrrrrGGGg"
+      "state": "GGGggrrrrrGGGggrrrrr"
     },
     {
       "duration": 3,
-      "state": "yrrrrrrrrrrryyyy"
+      "state": "yyyyyrrrrryyyyyrrrrr"
     },
     {
       "duration": 30,
-      "state": "rrrrGGGgGrrrrrrr"
+      "state": "rrrrrGGGggrrrrrGGGgg"
     },
     {
       "duration": 3,
-      "state": "rrrrGyyyyrrrrrrr"
-    },
-    {
-      "duration": 30,
-      "state": "GGGgGrrrrrrrrrrr"
-    },
-    {
-      "duration": 3,
-      "state": "yyyyyrrrrrrrrrrr"
-    },
-    {
-      "duration": 30,
-      "state": "rrrrrrrrrrrrrrrr"
-    },
-    {
-      "duration": 30,
-      "state": "rrrrrrrrGGGgGrrr"
-    },
-    {
-      "duration": 3,
-      "state": "rrrrrrrryyyyGrrr"
+      "state": "rrrrryyyyyrrrrryyyyy"
     }
   ],
-  "324": [
+  "35": [
     {
       "duration": 30,
-      "state": "rrrGGgGgg"
+      "state": "GGGgGGggrrr"
     },
     {
       "duration": 3,
-      "state": "rrrGyyyyy"
+      "state": "Gyyyyyyyrrr"
     },
     {
       "duration": 30,
-      "state": "GGgGrrrrr"
+      "state": "GrrrrrrrGGg"
     },
     {
       "duration": 3,
-      "state": "yyyGrrrrr"
+      "state": "Grrrrrrryyy"
     }
   ],
-  "343": [
+  "55": [
     {
       "duration": 30,
-      "state": "GGggrrrrGGggrrrr"
+      "state": "GGGgGGggrrrr"
     },
     {
       "duration": 3,
-      "state": "yyyyrrrryyyyrrrr"
+      "state": "Gyyyyyyyrrrr"
     },
     {
       "duration": 30,
-      "state": "rrrrGGggrrrrGGgg"
+      "state": "GrrrrrrrGGGg"
     },
     {
       "duration": 3,
-      "state": "rrrryyyyrrrryyyy"
+      "state": "Grrrrrrryyyy"
     }
   ],
-  "360": [
+  "6": [
     {
       "duration": 30,
-      "state": "GGgGggrrr"
+      "state": "rrrGGGgGGgg"
     },
     {
       "duration": 3,
-      "state": "Gyyyyyrrr"
+      "state": "rrrGyyyyyyy"
     },
     {
       "duration": 30,
-      "state": "GrrrrrGGg"
+      "state": "GGgGrrrrrrr"
     },
     {
       "duration": 3,
-      "state": "Grrrrryyy"
+      "state": "yyyGrrrrrrr"
     }
   ],
-  "503": [
+  "60": [
     {
       "duration": 30,
-      "state": "GGgGggrrr"
+      "state": "GGGggrrrrrgGGggrrrrr"
     },
     {
       "duration": 3,
-      "state": "Gyyyyyrrr"
+      "state": "yyyggrrrrrgyyggrrrrr"
     },
     {
       "duration": 30,
-      "state": "GrrrrrGGg"
+      "state": "rrrGGrrrrrgrrGGrrrrr"
     },
     {
       "duration": 3,
-      "state": "Grrrrryyy"
+      "state": "rrryyrrrrryrryyrrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrGGGggrrrrrGGGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrryyyggrrrrryyygg"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrrrrGGrrrrrrrrGG"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrrrrryyrrrrrrrryy"
     }
   ],
-  "591": [
+  "66": [
     {
       "duration": 30,
-      "state": "GGggrrrrGGggrrrr"
+      "state": "GGGggrrrrrGGGggrrrrr"
     },
     {
       "duration": 3,
-      "state": "yyyyrrrryyyyrrrr"
+      "state": "yyyyyrrrrryyyyyrrrrr"
     },
     {
       "duration": 30,
-      "state": "rrrrGGggrrrrGGgg"
+      "state": "rrrrrGGGggrrrrrGGGgg"
     },
     {
       "duration": 3,
-      "state": "rrrryyyyrrrryyyy"
+      "state": "rrrrryyyggrrrrryyygg"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrrrrGGrrrrrrrrGG"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrrrrryyrrrrrrrryy"
+    }
+  ],
+  "80": [
+    {
+      "duration": 30,
+      "state": "GGgGGr"
+    },
+    {
+      "duration": 3,
+      "state": "GGyGGr"
+    },
+    {
+      "duration": 30,
+      "state": "GGrGGg"
+    },
+    {
+      "duration": 3,
+      "state": "GGrGGy"
     }
   ]
 }

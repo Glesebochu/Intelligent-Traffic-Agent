@@ -1,13 +1,14 @@
 Traffic Light Phase Log
 ========================================
-Detected Traffic Lights: ('12', '122', '14', '18', '24', '324', '343', '360', '503', '591')
-Dynamic fixed timing set for traffic light: 12
-Dynamic fixed timing set for traffic light: 122
+Detected Traffic Lights: ('1', '14', '196', '344', '35', '55', '6', '60', '66', '80')
+Dynamic fixed timing set for traffic light: 1
 Dynamic fixed timing set for traffic light: 14
-Dynamic fixed timing set for traffic light: 18
-Dynamic fixed timing set for traffic light: 24
-Dynamic fixed timing set for traffic light: 324
-Dynamic fixed timing set for traffic light: 343
-Dynamic fixed timing set for traffic light: 360
-Dynamic fixed timing set for traffic light: 503
-Dynamic fixed timing set for traffic light: 591
+Dynamic fixed timing set for traffic light: 196
+Dynamic fixed timing set for traffic light: 344
+Dynamic fixed timing set for traffic light: 35
+Dynamic fixed timing set for traffic light: 55
+Dynamic fixed timing set for traffic light: 6
+Dynamic fixed timing set for traffic light: 60
+Dynamic fixed timing set for traffic light: 66
+Dynamic fixed timing set for traffic light: 80
+Simulation ended.

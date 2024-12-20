@@ -4,7 +4,7 @@ import json
 
 # Configuration
 sumoBinary = "sumo-gui"
-sumoConfig = "CustomNetworks/oneLaneMap.sumocfg"
+sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"
 output_file = "traffic_light_data2c.json"
 
 def get_traffic_light_info(tls_id):

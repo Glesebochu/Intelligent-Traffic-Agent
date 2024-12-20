@@ -3,7 +3,7 @@ import os
 from traci._trafficlight import Logic, Phase
 
 sumoBinary = "sumo-gui"
-sumoConfig = "CustomNetworks/oneLaneMap.sumocfg"  # Your configuration file
+sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"  # Your configuration file
 
 log_file = "Logs/fixed_tl_log.txt"
 metrics_file = "Logs/baseline_metrics.txt"
@@ -133,7 +133,7 @@ def run_baseline():
                 set_fixed_timing(tls_id)
                 log_handle.write(f"Dynamic fixed timing set for traffic light: {tls_id}\n")
 
-            simulation_end_time = 700
+            simulation_end_time = 1000
 
             # Run the simulation
             while (traci.simulation.getTime() < simulation_end_time and 
