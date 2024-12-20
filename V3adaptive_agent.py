@@ -124,9 +124,18 @@ from traci._trafficlight import Logic, Phase
 import copy
 
 # Configuration
+import os
+
+# Ensure file paths are absolute and robust
+script_dir = os.path.dirname(os.path.abspath(__file__))
 sumoBinary = "sumo-gui"
-sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"
-adaptive_phases_file = "adaptive_fixed_phases.json"
+sumoConfig = os.path.join(script_dir, "CustomNetworks", "twoLaneMap.sumocfg")
+adaptive_phases_file = os.path.join(script_dir, "adaptive_fixed_phases.json")
+
+# Ensure adaptive phases file exists
+if not os.path.exists(adaptive_phases_file):
+    raise FileNotFoundError(f"Adaptive phases file not found: {adaptive_phases_file}")
+
 
 # Adaptive control parameters
 MIN_GREEN = 15
