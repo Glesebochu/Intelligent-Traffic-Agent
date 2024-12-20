@@ -18,12 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -45,7 +41,7 @@
               "RelativeDocumentMoniker": "V3adaptive_agent.py",
               "ToolTip": "C:\\Users\\User\\source\\repos\\Glesebochu\\Intelligent-Traffic-Agent\\V3adaptive_agent.py",
               "RelativeToolTip": "V3adaptive_agent.py",
-              "ViewState": "AgIAAIsAAAAAAAAAAADwv80AAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAwwKAAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
               "WhenOpened": "2024-12-20T16:35:40.532Z",
               "EditorCaption": ""
