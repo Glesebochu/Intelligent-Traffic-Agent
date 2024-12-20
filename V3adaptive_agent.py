@@ -195,7 +195,13 @@ def run_adaptive_agent():
     
     # Initialize phase programs for each intersection
     tls_ids = traci.trafficlight.getIDList()
-    current_phases = {tls_id: copy.deepcopy(fixed_phases[tls_id]) for tls_id in tls_ids}
+    current_phases = {}
+    for tls_id in tls_ids:
+        if tls_id in fixed_phases:
+            current_phases[tls_id] = copy.deepcopy(fixed_phases[tls_id])
+        else:
+            print(f"Warning: No fixed phases found for {tls_id}. Skipping.")
+
     
     step = 0
     while step < 1000:
@@ -204,6 +210,9 @@ def run_adaptive_agent():
         
         # if step % STEP_INTERVAL == 0:
         for tls_id in tls_ids:
+            if tls_id not in fixed_phases:
+                continue  # Skip TLS IDs without fixed phases
+            
             queue_lengths = get_road_queues(tls_id, step)
             total_queue = sum(queue_lengths.values())
             
