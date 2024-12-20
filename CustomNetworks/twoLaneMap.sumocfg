@@ -5,7 +5,7 @@
     </input>
     <time>
         <begin value="0"/>
-        <end value="1000"/>
+        <end value="100"/>
     </time>
     <gui-settings-file value="view.settings.xml"/>
 </configuration>
