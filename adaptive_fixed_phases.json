@@ -1,350 +1,210 @@
 {
-    "12": [
-        {
-            "duration": 20,
-            "state": "GGGGGrrrrrrrrrrrrrrrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "yyyyyrrrrrrrrrrrrrrrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrGGGGGrrrrrrrrrrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrryyyyyrrrrrrrrrrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrrrrrGGGGGrrrrrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrrryyyyyrrrrrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrrrrrrrrrrGGGGGrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrrrrrrrryyyyyrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrrrrrrrrrrrrrrrGGGGG"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrrrrrrrrrrrrryyyyy"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrrrrrrrrrrrrrrrrrr"
-        }
-    ],
-    "122": [
-        {
-            "duration": 20,
-            "state": "GGGrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "yyyrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrGGGrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrryyyrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrGGG"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrryyy"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrr"
-        }
-    ],
-    "14": [
-        {
-            "duration": 20,
-            "state": "GGGrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "yyyrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrGGGrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrryyyrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrGGG"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrryyy"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrr"
-        }
-    ],
-    "18": [
-        {
-            "duration": 20,
-            "state": "GGGGrrrrrrrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "yyyyrrrrrrrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrGGGGrrrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrrryyyyrrrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrrrGGGGrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrryyyyrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrrrrrrrGGGG"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrrrrryyyy"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrrrrrrrrr"
-        }
-    ],
-    "24": [
-        {
-            "duration": 20,
-            "state": "GGGGrrrrrrrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "yyyyrrrrrrrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrGGGGrrrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrrryyyyrrrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrrrGGGGrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrryyyyrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrrrrrrrGGGG"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrrrrryyyy"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrrrrrrrrr"
-        }
-    ],
-    "324": [
-        {
-            "duration": 20,
-            "state": "GGGrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "yyyrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrGGGrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrryyyrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrGGG"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrryyy"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrr"
-        }
-    ],
-    "343": [
-        {
-            "duration": 20,
-            "state": "GGGGrrrrrrrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "yyyyrrrrrrrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrGGGGrrrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrrryyyyrrrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrrrGGGGrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrryyyyrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrrrrrrrGGGG"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrrrrryyyy"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrrrrrrrrr"
-        }
-    ],
-    "360": [
-        {
-            "duration": 20,
-            "state": "GGGrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "yyyrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrGGGrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrryyyrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrGGG"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrryyy"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrr"
-        }
-    ],
-    "503": [
-        {
-            "duration": 20,
-            "state": "GGGrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "yyyrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrGGGrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrryyyrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrGGG"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrryyy"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrr"
-        }
-    ],
-    "591": [
-        {
-            "duration": 20,
-            "state": "GGGGrrrrrrrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "yyyyrrrrrrrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrGGGGrrrrrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrrryyyyrrrrrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrrrGGGGrrrr"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrryyyyrrrr"
-        },
-        {
-            "duration": 20,
-            "state": "rrrrrrrrrrrrGGGG"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrrrrryyyy"
-        },
-        {
-            "duration": 6,
-            "state": "rrrrrrrrrrrrrrrr"
-        }
-    ]
+  "12": [
+    {
+      "duration": 30,
+      "state": "GGgggrrrrrrrrrrGGGggrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyyyrrrrrrrrrryyyyyrrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrgGgggrrrrrrrrrrGGGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrryyyyyrrrrrrrrrryyyyy"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrrrrrrGGGGgGrrrrrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrrrrrrryyyyyGrrrrrrrrr"
+    }
+  ],
+  "122": [
+    {
+      "duration": 30,
+      "state": "rrrGGgGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrGyyyyy"
+    },
+    {
+      "duration": 30,
+      "state": "GGgGrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyGrrrrr"
+    }
+  ],
+  "14": [
+    {
+      "duration": 30,
+      "state": "rrrGGgGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrGyyyyy"
+    },
+    {
+      "duration": 30,
+      "state": "GGgGrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyGrrrrr"
+    }
+  ],
+  "18": [
+    {
+      "duration": 30,
+      "state": "GGggrrrrGGggrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyyrrrryyyyrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrGGggrrrrGGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrryyyyrrrryyyy"
+    }
+  ],
+  "24": [
+    {
+      "duration": 30,
+      "state": "GrrrrrrrrrrrGGGg"
+    },
+    {
+      "duration": 3,
+      "state": "yrrrrrrrrrrryyyy"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrGGGgGrrrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrGyyyyrrrrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "GGGgGrrrrrrrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyyyrrrrrrrrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrrrrrrrrrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrrrrGGGgGrrr"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrrrrryyyyGrrr"
+    }
+  ],
+  "324": [
+    {
+      "duration": 30,
+      "state": "rrrGGgGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrGyyyyy"
+    },
+    {
+      "duration": 30,
+      "state": "GGgGrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyGrrrrr"
+    }
+  ],
+  "343": [
+    {
+      "duration": 30,
+      "state": "GGggrrrrGGggrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyyrrrryyyyrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrGGggrrrrGGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrryyyyrrrryyyy"
+    }
+  ],
+  "360": [
+    {
+      "duration": 30,
+      "state": "GGgGggrrr"
+    },
+    {
+      "duration": 3,
+      "state": "Gyyyyyrrr"
+    },
+    {
+      "duration": 30,
+      "state": "GrrrrrGGg"
+    },
+    {
+      "duration": 3,
+      "state": "Grrrrryyy"
+    }
+  ],
+  "503": [
+    {
+      "duration": 30,
+      "state": "GGgGggrrr"
+    },
+    {
+      "duration": 3,
+      "state": "Gyyyyyrrr"
+    },
+    {
+      "duration": 30,
+      "state": "GrrrrrGGg"
+    },
+    {
+      "duration": 3,
+      "state": "Grrrrryyy"
+    }
+  ],
+  "591": [
+    {
+      "duration": 30,
+      "state": "GGggrrrrGGggrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyyrrrryyyyrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrGGggrrrrGGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrryyyyrrrryyyy"
+    }
+  ]
 }
