@@ -142,20 +142,35 @@ MAX_GREEN = 45
 QUEUE_THRESHOLD = 3
 STEP_INTERVAL = 3
 
-def get_road_queues(tls_id,step):
-    """Get queue lengths aggregated by road."""
+def get_road_queues(tls_id, step):
+    """Get queue lengths aggregated by road, and print debug information."""
     queue_lengths = {}
     tl_lanes = traci.trafficlight.getControlledLanes(tls_id)
-    
+    seen_lanes = set()  # Avoid duplicate lane processing
+
+    print(f"Step {step} - Traffic light {tls_id} controls lanes: {tl_lanes}")
+
     for lane in tl_lanes:
-        road_id = lane.split("_")[0]
+        if lane in seen_lanes:
+            continue  # Skip duplicate lanes
+        seen_lanes.add(lane)
+
+        road_id = lane.split("_")[0]  # Extract road ID
+        halting_vehicles = traci.lane.getLastStepHaltingNumber(lane)
+
+        # Aggregate by road ID
         if road_id not in queue_lengths:
             queue_lengths[road_id] = 0
-        queue_lengths[road_id] += traci.lane.getLastStepHaltingNumber(lane)
-    
-    print(f"{tls_id}:{queue_lengths} at sim step {step}")
+        queue_lengths[road_id] += halting_vehicles
+
+        # Debug: Print lane-specific queue information
+        print(f"  Lane {lane} (road {road_id}): {halting_vehicles} vehicles halting.")
+
+    # Debug: Print aggregated queue lengths by road
+    print(f"Aggregated queue lengths at {tls_id}: {queue_lengths}\n")
 
     return queue_lengths
+
 
 def get_green_roads(state, tls_id):
     """Identify which roads have green signal in current state."""
