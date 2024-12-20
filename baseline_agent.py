@@ -9,44 +9,44 @@ log_file = "Logs/fixed_tl_log.txt"
 metrics_file = "Logs/baseline_metrics.txt"
 
 # Traffic light phase definitions for intersections
-fixed_phases_dict = {
-    1: [Phase(20, "G"),# North-South green, East-West red for 20 seconds
-        Phase(6, "y"),# North-South yellow, East-West red for 6 seconds
-        Phase(20, "r"),# East-West green, North-South red for 20 seconds
-        Phase(6, "r")# East-West yellow, North-South red for 6 seconds
-        ],
-    2: [Phase(20, "Gr"),
-        Phase(6, "yr"),
-        Phase(20, "rG"),
-        Phase(6, "ry")
-        ],  
-    3: [Phase(20, "Grr"),
-        Phase(6, "yrr"),
-        Phase(20, "rGr"),
-        Phase(6, "ryr")
-        ],   
-    4: [Phase(20, "Grrr"),
-        Phase(6, "yrrr"),
-        Phase(20, "rGGG"),
-        Phase(6, "rrrr")
-        ], 
-    5: [Phase(20, "Grrrr"),
-        Phase(6, "yrrrr"),
-        Phase(20, "rGGGG"),
-        Phase(6, "rrrrr")
-        ],   
-    6: [Phase(20, "GGGrrr"),
-        Phase(6, "yyyrrr"),
-        Phase(20, "rrrGGG"),
-        Phase(6, "rrryyy")
-        ],
-    7: [Phase(20, "GGGrrrr"),
-        Phase(6, "yyyrrrr"),
-        Phase(20, "rrrGGGG"),
-        Phase(6, "rrryyyy")
-        ],
+# fixed_phases_dict = {
+#     1: [Phase(20, "G"),# North-South green, East-West red for 20 seconds
+#         Phase(6, "y"),# North-South yellow, East-West red for 6 seconds
+#         Phase(20, "r"),# East-West green, North-South red for 20 seconds
+#         Phase(6, "r")# East-West yellow, North-South red for 6 seconds
+#         ],
+#     2: [Phase(20, "Gr"),
+#         Phase(6, "yr"),
+#         Phase(20, "rG"),
+#         Phase(6, "ry")
+#         ],  
+#     3: [Phase(20, "Grr"),
+#         Phase(6, "yrr"),
+#         Phase(20, "rGr"),
+#         Phase(6, "ryr")
+#         ],   
+#     4: [Phase(20, "Grrr"),
+#         Phase(6, "yrrr"),
+#         Phase(20, "rGGG"),
+#         Phase(6, "rrrr")
+#         ], 
+#     5: [Phase(20, "Grrrr"),
+#         Phase(6, "yrrrr"),
+#         Phase(20, "rGGGG"),
+#         Phase(6, "rrrrr")
+#         ],   
+#     6: [Phase(20, "GGGrrr"),
+#         Phase(6, "yyyrrr"),
+#         Phase(20, "rrrGGG"),
+#         Phase(6, "rrryyy")
+#         ],
+#     7: [Phase(20, "GGGrrrr"),
+#         Phase(6, "yyyrrrr"),
+#         Phase(20, "rrrGGGG"),
+#         Phase(6, "rrryyyy")
+#         ],
 
-}
+# }
 
 #for performance metrics
 vehicle_travel_times = {} #{id: travel_time}
@@ -55,18 +55,21 @@ total_waiting_time = 0
 queue_lengths = {} # {tls_id: total_queued_vehicles}
    
 def set_fixed_timing(tls_id):  
-    controlled_lanes = traci.trafficlight.getControlledLanes(tls_id)
-    num_lanes = len(controlled_lanes)
+    # controlled_lanes = traci.trafficlight.getControlledLanes(tls_id)
+    # num_lanes = len(controlled_lanes)
 
-    print(f"Traffic light {tls_id} controls {num_lanes} lanes.")
+    # print(f"Traffic light {tls_id} controls {num_lanes} lanes.")
 
-    if num_lanes in fixed_phases_dict:
-        phases = fixed_phases_dict[num_lanes]
-    else:
-            print(f"Traffic light {tls_id} has unsupported lane count, {num_lanes}.")
-            return
+    # if num_lanes in fixed_phases_dict:
+    #     phases = fixed_phases_dict[num_lanes]
+    # else:
+    #         print(f"Traffic light {tls_id} has unsupported lane count, {num_lanes}.")
+    #         return
     
-    logic = Logic("fixed_program", 0, 0, phases)
+    # logic = Logic("fixed_program", 0, 0, phases)
+    
+    logic = traci.trafficlight.getAllProgramLogics(tls_id)[0]
+    
 
     traci.trafficlight.setProgramLogic(tls_id, logic)
 
