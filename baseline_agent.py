@@ -3,17 +3,17 @@ import os
 from traci._trafficlight import Logic, Phase
 
 sumoBinary = "sumo-gui"
-sumoConfig = "basemap/basemap.sumocfg"  # Your configuration file
+sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"  # Your configuration file
 
-log_file = "fixed_tl_log.txt"
-metrics_file = "baseline_metrics.txt"
+log_file = "Logs/fixed_tl_log.txt"
+metrics_file = "Logs/baseline_metrics.txt"
 
 # Traffic light phase definitions for intersections
 fixed_phases_dict = {
-    1: [Phase(20, "G"),# North-South green, East-West red for 10 seconds
-        Phase(6, "y"),# North-South yellow, East-West red for 3 seconds
-        Phase(20, "r"),# East-West green, North-South red for 10 seconds
-        Phase(6, "r")# East-West yellow, North-South red for 3 seconds
+    1: [Phase(20, "G"),# North-South green, East-West red for 20 seconds
+        Phase(6, "y"),# North-South yellow, East-West red for 6 seconds
+        Phase(20, "r"),# East-West green, North-South red for 20 seconds
+        Phase(6, "r")# East-West yellow, North-South red for 6 seconds
         ],
     2: [Phase(20, "Gr"),
         Phase(6, "yr"),
@@ -133,7 +133,7 @@ def run_baseline():
                 set_fixed_timing(tls_id)
                 log_handle.write(f"Dynamic fixed timing set for traffic light: {tls_id}\n")
 
-            simulation_end_time = 700
+            simulation_end_time = 1000
 
             # Run the simulation
             while (traci.simulation.getTime() < simulation_end_time and 

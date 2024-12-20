@@ -1,0 +1,206 @@
+{
+  "1": [
+    {
+      "duration": 30,
+      "state": "GGGggrrrrrGGGggrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyyyrrrrryyyyyrrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrGGGggrrrrrGGGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrryyyyyrrrrryyyyy"
+    }
+  ],
+  "14": [
+    {
+      "duration": 30,
+      "state": "GGggrrrGGGg"
+    },
+    {
+      "duration": 3,
+      "state": "yyyyrrrGyyy"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrGGgGrrr"
+    },
+    {
+      "duration": 3,
+      "state": "rrrryyyGrrr"
+    }
+  ],
+  "196": [
+    {
+      "duration": 30,
+      "state": "rrrrrGGGggrrrrrGGGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrryyyyyrrrrryyyyy"
+    },
+    {
+      "duration": 30,
+      "state": "GGGggrrrrrGGGggrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyyyrrrrryyyyyrrrrr"
+    }
+  ],
+  "344": [
+    {
+      "duration": 30,
+      "state": "GGGggrrrrrGGGggrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyyyrrrrryyyyyrrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrGGGggrrrrrGGGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrryyyyyrrrrryyyyy"
+    }
+  ],
+  "35": [
+    {
+      "duration": 30,
+      "state": "GGGgGGggrrr"
+    },
+    {
+      "duration": 3,
+      "state": "Gyyyyyyyrrr"
+    },
+    {
+      "duration": 30,
+      "state": "GrrrrrrrGGg"
+    },
+    {
+      "duration": 3,
+      "state": "Grrrrrrryyy"
+    }
+  ],
+  "55": [
+    {
+      "duration": 30,
+      "state": "GGGgGGggrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "Gyyyyyyyrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "GrrrrrrrGGGg"
+    },
+    {
+      "duration": 3,
+      "state": "Grrrrrrryyyy"
+    }
+  ],
+  "6": [
+    {
+      "duration": 30,
+      "state": "rrrGGGgGGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrGyyyyyyy"
+    },
+    {
+      "duration": 30,
+      "state": "GGgGrrrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyGrrrrrrr"
+    }
+  ],
+  "60": [
+    {
+      "duration": 30,
+      "state": "GGGggrrrrrgGGggrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyggrrrrrgyyggrrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "rrrGGrrrrrgrrGGrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "rrryyrrrrryrryyrrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrGGGggrrrrrGGGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrryyyggrrrrryyygg"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrrrrGGrrrrrrrrGG"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrrrrryyrrrrrrrryy"
+    }
+  ],
+  "66": [
+    {
+      "duration": 30,
+      "state": "GGGggrrrrrGGGggrrrrr"
+    },
+    {
+      "duration": 3,
+      "state": "yyyyyrrrrryyyyyrrrrr"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrGGGggrrrrrGGGgg"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrryyyggrrrrryyygg"
+    },
+    {
+      "duration": 30,
+      "state": "rrrrrrrrGGrrrrrrrrGG"
+    },
+    {
+      "duration": 3,
+      "state": "rrrrrrrryyrrrrrrrryy"
+    }
+  ],
+  "80": [
+    {
+      "duration": 30,
+      "state": "GGgGGr"
+    },
+    {
+      "duration": 3,
+      "state": "GGyGGr"
+    },
+    {
+      "duration": 30,
+      "state": "GGrGGg"
+    },
+    {
+      "duration": 3,
+      "state": "GGrGGy"
+    }
+  ]
+}

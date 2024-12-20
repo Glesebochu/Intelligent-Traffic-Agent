@@ -3,10 +3,10 @@ import os
 from traci._trafficlight import Logic, Phase
 
 sumoBinary = "sumo-gui"
-sumoConfig = "basemap/basemap.sumocfg"  
+sumoConfig = "CustomNetworks/oneLaneMap.sumocfg"  
 
-log_file = "adaptive_tl_log.txt"
-metrics_file = "adaptive_metrics.txt"
+log_file = "Logs/adaptive_tl_log.txt"
+metrics_file = "Logs/adaptive_metrics.txt"
 
 vehicle_travel_times = {}
 vehicle_departure_times = {}
