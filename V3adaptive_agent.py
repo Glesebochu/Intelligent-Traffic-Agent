@@ -134,7 +134,7 @@ MAX_GREEN = 45
 QUEUE_THRESHOLD = 3
 STEP_INTERVAL = 3
 
-def get_road_queues(tls_id):
+def get_road_queues(tls_id,step):
     """Get queue lengths aggregated by road."""
     queue_lengths = {}
     tl_lanes = traci.trafficlight.getControlledLanes(tls_id)
@@ -145,6 +145,8 @@ def get_road_queues(tls_id):
             queue_lengths[road_id] = 0
         queue_lengths[road_id] += traci.lane.getLastStepHaltingNumber(lane)
     
+    print(f"{tls_id}:{queue_lengths} at sim step {step}")
+
     return queue_lengths
 
 def get_green_roads(state, tls_id):
@@ -191,38 +193,38 @@ def run_adaptive_agent():
         traci.simulationStep()
         step += 1
         
-        if step % STEP_INTERVAL == 0:
-            for tls_id in tls_ids:
-                queue_lengths = get_road_queues(tls_id)
-                total_queue = sum(queue_lengths.values())
-                
-                if total_queue > QUEUE_THRESHOLD:
-                    # Create adaptive phases
-                    adaptive_phases = []
-                    for phase in fixed_phases[tls_id]:
-                        state = phase["state"]
-                        base_duration = phase["duration"]
-                        
-                        if 'y' in state:  # Yellow phase - keep original duration
-                            adaptive_phases.append(Phase(base_duration, state))
-                        else:
-                            green_roads = get_green_roads(state, tls_id)
-                            new_duration = calculate_adaptive_duration(
-                                base_duration, green_roads, queue_lengths)
-                            adaptive_phases.append(Phase(new_duration, state))
+        # if step % STEP_INTERVAL == 0:
+        for tls_id in tls_ids:
+            queue_lengths = get_road_queues(tls_id, step)
+            total_queue = sum(queue_lengths.values())
+            
+            if total_queue > QUEUE_THRESHOLD:
+                # Create adaptive phases
+                adaptive_phases = []
+                for phase in fixed_phases[tls_id]:
+                    state = phase["state"]
+                    base_duration = phase["duration"]
                     
-                    # Apply adaptive timing
-                    logic = Logic("adaptive_program", 0, 0, adaptive_phases)
-                    traci.trafficlight.setProgramLogic(tls_id, logic)
-                else:
-                    # Apply fixed timing from JSON
-                    fixed_phases_data = [
-                        Phase(int(phase["duration"]), phase["state"])
-                        for phase in fixed_phases[tls_id]
-                    ]
-                    logic = Logic("fixed_program", 0, 0, fixed_phases_data)
-                    traci.trafficlight.setProgramLogic(tls_id, logic)
-    
+                    if 'y' in state:  # Yellow phase - keep original duration
+                        adaptive_phases.append(Phase(base_duration, state))
+                    else:
+                        green_roads = get_green_roads(state, tls_id)
+                        new_duration = calculate_adaptive_duration(
+                            base_duration, green_roads, queue_lengths)
+                        adaptive_phases.append(Phase(new_duration, state))
+                
+                # Apply adaptive timing
+                logic = Logic("adaptive_program", 0, 0, adaptive_phases)
+                traci.trafficlight.setProgramLogic(tls_id, logic)
+            else:
+                # Apply fixed timing from JSON
+                fixed_phases_data = [
+                    Phase(int(phase["duration"]), phase["state"])
+                    for phase in fixed_phases[tls_id]
+                ]
+                logic = Logic("fixed_program", 0, 0, fixed_phases_data)
+                traci.trafficlight.setProgramLogic(tls_id, logic)
+
     traci.close()
 
 if __name__ == "__main__":
