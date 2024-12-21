@@ -51,7 +51,7 @@ def get_road_queues(tls_id, step):
     try:
         # Get the lanes controlled by the traffic light system
         tl_lanes = traci.trafficlight.getControlledLanes(tls_id)
-        print(f"Step {step} - Traffic light {tls_id} controls lanes: {tl_lanes}")
+        # print(f"Step {step} - Traffic light {tls_id} controls lanes: {tl_lanes}")
 
         for lane in tl_lanes:
             if lane in seen_lanes:
@@ -74,9 +74,9 @@ def get_road_queues(tls_id, step):
             queue_lengths[road_id] += halting_vehicles
 
             # Debug: Print lane-specific queue information
-            print(
-                f"  Lane {lane} (road {road_id}): {halting_vehicles} vehicles halting."
-            )
+            # print(
+            #     f"  Lane {lane} (road {road_id}): {halting_vehicles} vehicles halting."
+            # )
 
         # Debug: Print aggregated queue lengths by road
         print(f"Aggregated queue lengths at {tls_id}: {queue_lengths}\n")
@@ -146,7 +146,7 @@ def run_adaptive_agent():
 
 
         step = 0
-        while step < 20:
+        while step < 1000:
             try:
                 traci.simulationStep()
                 step += 1
@@ -162,6 +162,10 @@ def run_adaptive_agent():
 
                     try:
                         queue_lengths = get_road_queues(tls_id, step)
+                        
+                        total_queue = sum(queue_lengths.values())
+                        print (f"Total Queue for traffic light {tls_id} = {total_queue}")
+                        
                         for road_id, queue_length in queue_lengths.items():
                             step_queue_data["data"].append({
                                 "tls_id": tls_id,
@@ -189,15 +193,15 @@ def run_adaptive_agent():
                 rt_traffic_data["avg_speed"].append(step_speed_data)
 
                 # Debug: Print to confirm data is appended
-                print(f"Appended to rt_traffic_data['queue_length']: {step_queue_data}")
-                print(f"Appended to rt_traffic_data['avg_speed']: {step_speed_data}")
+                # print(f"Appended to rt_traffic_data['queue_length']: {step_queue_data}")
+                # print(f"Appended to rt_traffic_data['avg_speed']: {step_speed_data}")
 
             except Exception as e:
                 print(f"Error during simulation step {step}: {e}")
                 traceback.print_exc()
 
         # Debug: Final rt_traffic_data
-        print(f"Final RT Traffic Data: {rt_traffic_data}")
+        # print(f"Final RT Traffic Data: {rt_traffic_data}")
 
         traci.close()
         return rt_traffic_data
@@ -223,7 +227,7 @@ def write_data_to_csv(rt_traffic_data):
                 })
 
         # Debug: Print queue data before writing
-        print(f"Queue Data for CSV: {queue_data}")
+        # print(f"Queue Data for CSV: {queue_data}")
 
         # Prepare average speed data for CSV
         speed_data = []
@@ -236,18 +240,18 @@ def write_data_to_csv(rt_traffic_data):
                 })
 
         # Debug: Print speed data before writing
-        print(f"Speed Data for CSV: {speed_data}")
+        # print(f"Speed Data for CSV: {speed_data}")
 
         # Export to CSV
         if queue_data:
             pd.DataFrame(queue_data).to_csv("road_queue_lengths.csv", index=False)
-            print("road_queue_lengths.csv successfully written.")
+            # print("road_queue_lengths.csv successfully written.")
         else:
             print("Queue data is empty. No CSV file was written.")
 
         if speed_data:
             pd.DataFrame(speed_data).to_csv("edge_avg_speeds.csv", index=False)
-            print("edge_avg_speeds.csv successfully written.")
+            # print("edge_avg_speeds.csv successfully written.")
         else:
             print("Speed data is empty. No CSV file was written.")
 
