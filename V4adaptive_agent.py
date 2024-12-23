@@ -20,10 +20,12 @@ if not os.path.exists(adaptive_phases_file):
     raise FileNotFoundError(f"Adaptive phases file not found: {adaptive_phases_file}")
 
 # Adaptive control parameters
-MIN_GREEN = 15
+MIN_GREEN = 3
 MAX_GREEN = 45
-QUEUE_THRESHOLD = 3
+QUEUE_THRESHOLD = 5
 STEP_INTERVAL = 3
+EXTRA_GREEN_TIME = 10
+LESS_RED_TIME = 0.7
 rt_traffic_data = {"avg_speed": [], "queue_length": []}
 
 #A function that calculates average speed
@@ -79,7 +81,7 @@ def get_road_queues(tls_id, step):
             # )
 
         # Debug: Print aggregated queue lengths by road
-        print(f"Aggregated queue lengths at {tls_id}: {queue_lengths}\n")
+        # print(f"Aggregated queue lengths at {tls_id}: {queue_lengths}\n")
 
     except traci.TraCIException as e:
         print(f"Error retrieving controlled lanes for TLS {tls_id} at step {step}: {e}")
@@ -90,38 +92,6 @@ def get_road_queues(tls_id, step):
 
     return queue_lengths
 
-
-def get_green_roads(state, tls_id):
-    """Identify which roads have green signal in current state."""
-    green_roads = set()
-    controlled_lanes = traci.trafficlight.getControlledLanes(tls_id)
-
-    for i, signal in enumerate(state):
-        if signal in ["G", "g"]:
-            road_id = controlled_lanes[i].split("_")[0]
-            green_roads.add(road_id)
-
-    return green_roads
-
-
-def calculate_adaptive_duration(base_duration, green_roads, queue_lengths):
-    """Calculate adaptive duration based on queue ratios."""
-    total_queue = sum(queue_lengths.values())
-    if total_queue == 0:
-        return base_duration
-
-    # Ensure all roads in green_roads exist in queue_lengths
-    green_queue = sum(
-        queue_lengths[road] for road in green_roads if road in queue_lengths
-    )
-
-    if green_queue == 0:
-        return MIN_GREEN
-
-    queue_ratio = green_queue / total_queue
-    adapted_duration = base_duration * (1 + queue_ratio)
-
-    return max(MIN_GREEN, min(MAX_GREEN, int(adapted_duration)))
 
 #Main function that runs the adaptive agent
 def run_adaptive_agent():
@@ -136,14 +106,9 @@ def run_adaptive_agent():
 
         # Initialize phase programs for each intersection
         tls_ids = traci.trafficlight.getIDList()
-        current_phases = {}
-        for tls_id in tls_ids:
-            if tls_id in fixed_phases:
-                current_phases[tls_id] = copy.deepcopy(fixed_phases[tls_id])
-            else:
-                print(f"Warning: No fixed phases found for {tls_id}. Skipping.")
-
-
+    
+        # Track which phases have been adjusted
+        adjusted_phases = {tls_id: None for tls_id in tls_ids}
 
         step = 0
         while step < 1000:
@@ -158,13 +123,14 @@ def run_adaptive_agent():
                 # Collect queue lengths
                 for tls_id in tls_ids:
                     if tls_id not in fixed_phases:
+                        print(f"TLS {tls_id} not found in adaptivePhasesdata.json file.")
                         continue
 
                     try:
                         queue_lengths = get_road_queues(tls_id, step)
                         
                         total_queue = sum(queue_lengths.values())
-                        print (f"Total Queue for traffic light {tls_id} = {total_queue}")
+                        # print (f"Total Queue for traffic light {tls_id} = {total_queue}")
                         
                         for road_id, queue_length in queue_lengths.items():
                             step_queue_data["data"].append({
@@ -175,7 +141,66 @@ def run_adaptive_agent():
                     except Exception as e:
                         print(f"Error collecting queue lengths for TLS {tls_id} at step {step}: {e}")
                         traceback.print_exc()
+                    
+                    
+                    
+                    if total_queue > QUEUE_THRESHOLD:
+                        #get all the roads and their queues for the traffic light
+                        #get the green roads
+                        #if in the current simulation step, the current traffic light phase is green for the road with less queues, then do nothing
+                        #if in the current simulation step, the current traffic light phase is green for the road with the highest queue length, then use setPhaseDuration to make it longer but bounded to a max
+                        current_phase_index = traci.trafficlight.getPhase(tls_id)
+                        current_phase_state = fixed_phases[tls_id][current_phase_index]["state"]
+                        
+                        # Detect phase change and reset adjusted phase
+                        if adjusted_phases[tls_id] != current_phase_index:
+                            # Reset adjustment tracker if phase has changed
+                            adjusted_phases[tls_id] = None
+                           
+                        # Skip if this phase was already adjusted    
+                        if adjusted_phases[tls_id] == current_phase_index:
+                            continue
 
+                        # Identify green roads in the current phase
+                        green_roads = [
+                            road_id
+                            for road_id, lanes in queue_lengths.items()
+                            if any(
+                                current_phase_state[i] == "G"
+                                for i, lane in enumerate(traci.trafficlight.getControlledLanes(tls_id))
+                                if lane.split("_")[0] == road_id
+                            )
+                        ]
+
+                        # If the current green roads have the highest queue, extend the phase duration
+                        highest_queue_road = max(queue_lengths, key=queue_lengths.get)
+                        # print(f"Road with highest queue length: {highest_queue_road}\n")
+                        
+                        if highest_queue_road not in green_roads:   
+                            new_duration = max(
+                                MIN_GREEN,
+                                fixed_phases[tls_id][current_phase_index]["duration"] * LESS_RED_TIME
+                            )
+                            detractedTime = fixed_phases[tls_id][current_phase_index]["duration"] - new_duration
+                            print(f"detracting red phase for TLS {tls_id} by {detractedTime} seconds. for the highest queue road {highest_queue_road} at sim step {step}\n")
+                            traci.trafficlight.setPhaseDuration(tls_id, new_duration)
+                            adjusted_phases[tls_id] = current_phase_index
+
+                        else:      
+                            # Extend the green light for the current phase
+                            new_duration = min(
+                                MAX_GREEN,
+                                fixed_phases[tls_id][current_phase_index]["duration"] + EXTRA_GREEN_TIME
+                            )
+                            print(f"Extending green phase for TLS {tls_id} by {EXTRA_GREEN_TIME} seconds. for the highest queue road {highest_queue_road} at sim step {step}\n")
+                            traci.trafficlight.setPhaseDuration(tls_id, new_duration)
+                            adjusted_phases[tls_id] = current_phase_index
+                            # continue
+
+                    else:
+                        continue
+                 
+                                
                 # Collect average speed for edges
                 try:
                     edge_ids = traci.edge.getIDList()
