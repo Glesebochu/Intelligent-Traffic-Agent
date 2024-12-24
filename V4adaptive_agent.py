@@ -176,15 +176,17 @@ def run_adaptive_agent():
                         highest_queue_road = max(queue_lengths, key=queue_lengths.get)
                         # print(f"Road with highest queue length: {highest_queue_road}\n")
                         
-                        if highest_queue_road not in green_roads:   
+                        if highest_queue_road not in green_roads:  
+                            #detract red time for the current phase 
                             new_duration = max(
                                 MIN_GREEN,
                                 fixed_phases[tls_id][current_phase_index]["duration"] * LESS_RED_TIME
                             )
                             detractedTime = fixed_phases[tls_id][current_phase_index]["duration"] - new_duration
-                            print(f"detracting red phase for TLS {tls_id} by {detractedTime} seconds. for the highest queue road {highest_queue_road} at sim step {step}\n")
-                            traci.trafficlight.setPhaseDuration(tls_id, new_duration)
-                            adjusted_phases[tls_id] = current_phase_index
+                            if detractedTime:
+                                print(f"detracting red phase for TLS {tls_id} by {detractedTime} seconds due to the highest queue road {highest_queue_road} at sim step {step}\n")
+                                traci.trafficlight.setPhaseDuration(tls_id, new_duration)
+                                adjusted_phases[tls_id] = current_phase_index
 
                         else:      
                             # Extend the green light for the current phase
