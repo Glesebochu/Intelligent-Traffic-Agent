@@ -3,9 +3,5 @@
         <net-file value="2LaneNetwork.net.xml"/>
         <route-files value="2LaneRoute.rou.xml"/>
     </input>
-    <time>
-        <begin value="0"/>
-        <end value="500"/>
-    </time>
     <gui-settings-file value="view.settings.xml"/>
 </configuration>
