@@ -90,3 +90,38 @@ def get_adjacent_queues(edge_id):
 def get_edge_speeds(edge_id):
     # Placeholder function to retrieve speed data for the edge
     return [0] * 10  # Replace with actual logic
+
+def handle_incidents(incidents):
+    for incident_type, edge_id in incidents:
+        strategy = RESPONSE_STRATEGIES[incident_type]
+        if strategy == 'reroute':
+            print(f"Detected {incident_type} on edge {edge_id}.")
+            reroute_traffic(edge_id)
+
+def reroute_traffic(edge_id):
+    try:
+        # Get the list of vehicles on the affected edge
+        vehicles = traci.edge.getLastStepVehicleIDs(edge_id)
+        
+        for vehicle_id in vehicles:
+            # Find an alternative route for each vehicle
+            current_route = traci.vehicle.getRoute(vehicle_id)
+            alternative_route = find_alternative_route(current_route, edge_id)
+            
+            if alternative_route:
+                # Update the vehicle's route
+                traci.vehicle.setRoute(vehicle_id, alternative_route)
+                print(f"Rerouted vehicle {vehicle_id} from edge {edge_id} to alternative route.")
+            else:
+                print(f"No alternative route found for vehicle {vehicle_id} on edge {edge_id}.")
+    except traci.TraCIException as e:
+        print(f"Error rerouting traffic from edge {edge_id}: {e}")
+
+def find_alternative_route(current_route, blocked_edge):
+    # Implement logic to find an alternative route avoiding the blocked edge
+    # This is a placeholder implementation and should be replaced with actual routing logic
+    alternative_route = []
+    for edge in current_route:
+        if edge != blocked_edge:
+            alternative_route.append(edge)
+    return alternative_route if alternative_route else None
