@@ -122,6 +122,8 @@ import os
 import json
 from traci._trafficlight import Logic, Phase
 import copy
+from Python_files.performance_testing_AD import gather_performance_data, initialize_metrics
+from Python_files.random_scenarios import apply_random_scenarios
 
 # Configuration
 import os
@@ -167,10 +169,9 @@ def get_road_queues(tls_id, step):
         # print(f"  Lane {lane} (road {road_id}): {halting_vehicles} vehicles halting.")
 
     # Debug: Print aggregated queue lengths by road
-    print(f"Aggregated queue lengths at {tls_id}: {queue_lengths}\n")
+    # print(f"Aggregated queue lengths at {tls_id}: {queue_lengths}\n")
 
     return queue_lengths
-
 
 def get_green_roads(state, tls_id):
     """Identify which roads have green signal in current state."""
@@ -204,7 +205,8 @@ def calculate_adaptive_duration(base_duration, green_roads, queue_lengths):
 def run_adaptive_agent():
     """Main function to run the adaptive traffic control agent."""
     traci.start([sumoBinary, "-c", sumoConfig])
-    
+    initialize_metrics()
+
     # Load fixed phase data
     with open(adaptive_phases_file, "r") as f:
         fixed_phases = json.load(f)
@@ -220,10 +222,10 @@ def run_adaptive_agent():
 
     
     step = 0
-    while step < 1000:
+    while step < 200:
         traci.simulationStep()
         step += 1
-        
+        apply_random_scenarios(step)
         # if step % STEP_INTERVAL == 0:
         for tls_id in tls_ids:
             if tls_id not in fixed_phases:
@@ -245,7 +247,7 @@ def run_adaptive_agent():
                         adaptive_phases.append(Phase(base_duration, state))
                     else:
                         green_roads = get_green_roads(state, tls_id)
-                        print(f"Green roads: {green_roads} at {tls_id} using base state {state}")
+                        # print(f"Green roads: {green_roads} at {tls_id} using base state {state}")
                         new_duration = calculate_adaptive_duration(
                             base_duration, green_roads, queue_lengths)
                         adaptive_phases.append(Phase(new_duration, state))
@@ -253,6 +255,8 @@ def run_adaptive_agent():
                 # Apply adaptive timing
                 logic = Logic("adaptive_program", 0, 0, adaptive_phases)
                 traci.trafficlight.setProgramLogic(tls_id, logic)
+                gather_performance_data()
+
             else:
                 # Apply fixed timing from JSON
                 fixed_phases_data = [

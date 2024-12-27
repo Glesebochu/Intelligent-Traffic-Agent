@@ -9,7 +9,7 @@ green_phase_durations = {}  # Tracks green light durations for each traffic ligh
 red_phase_durations = {}  # Tracks red light durations for each traffic light
 
 # Global variables
-output_file = "baseline_performance_metrics.csv"
+output_file = "Logs/performance_data.csv"
 metrics_file = "Logs/baseline_metrics.txt"
 total_waiting_time = 0  # Total waiting time for all vehicles
 throughput = 0  # Total number of vehicles that have arrived
@@ -47,7 +47,7 @@ def gather_performance_data():
         # Determine traffic demand based on the number of cars entered
         if num_cars_entered <= 300:
             traffic_demand = "low"
-        elif num_cars_entered <= 1000:
+        elif num_cars_entered <= 600:
             traffic_demand = "mid"
         else:
             traffic_demand = "high"
