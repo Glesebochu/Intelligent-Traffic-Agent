@@ -28,7 +28,7 @@ def random_block_edge(edge_id='59', duration=100):
     - probability (float): The probability of blocking the edge (0 to 1).
     - duration (int): Duration (in simulation steps) to keep the edge blocked.
     """
-    if random.random() < 0.2:
+    if random.random() < 0.1:
         print(f"Randomly blocking edge {edge_id} for {duration} steps.")
         block_edge(edge_id, duration)
 
@@ -46,7 +46,7 @@ def block_edge(edge_id, duration=100):
         num_lanes = traci.edge.getLaneNumber(edge_id)
         for lane_index in range(num_lanes):
             lane_id = f"{edge_id}_{lane_index}"
-            traci.lane.setDisallowed(lane_id, ["passenger", "truck", "bus"])  # Block new entries
+            traci.lane.setDisallowed(lane_id, ["all"])  # Block new entries
 
         print(f"Edge {edge_id} is now restricted to existing vehicles.")
 
@@ -77,7 +77,7 @@ def block_edge(edge_id, duration=100):
         # 5. Unblock the edge after the duration ends
         for lane_index in range(num_lanes):
             lane_id = f"{edge_id}_{lane_index}"
-            traci.lane.setAllowed(lane_id, ["passenger", "truck", "bus"])  # Restore permissions
+            traci.lane.setAllowed(lane_id, ["all"])  # Restore permissions
 
         print(f"Edge {edge_id} is now unblocked.")
 
