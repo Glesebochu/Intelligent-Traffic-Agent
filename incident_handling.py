@@ -18,7 +18,7 @@ RESPONSE_STRATEGIES = {
 }
 
 # Thresholds for incident detection
-ACCIDENT_SPEED_THRESHOLD = 2  # Speed below which an accident is suspected (m/s)
+ACCIDENT_SPEED_THRESHOLD = 1  # Speed below which an accident is suspected (m/s)
 SURGE_QUEUE_THRESHOLD = 20    # Queue length above which a sudden surge is suspected
 
 import random
@@ -30,6 +30,7 @@ def simulate_accident(step):
         traci.vehicle.setStop(vehicle_id, edgeID="edge1", pos=100, duration=200)
         print(f"Accident simulated for vehicle {vehicle_id} at step {step}.")
         
+# A function for detecting incidents
 def detect_incidents():
     incidents = []
     for edge_id in traci.edge.getIDList():
@@ -43,10 +44,36 @@ def detect_incidents():
         
         if detect_accident(avg_speed, queue_length, tls_id, edge_id, step, queue_history, adjacent_queues, edge_speeds):
             incidents.append(('accident', edge_id))
-        elif queue_length > SURGE_QUEUE_THRESHOLD:
+        if queue_length > SURGE_QUEUE_THRESHOLD:
             incidents.append(('sudden_surge', edge_id))
+        if is_road_closed(edge_id):  # Assuming you have a function to check road closures
+            incidents.append(('road_closure', edge_id))
     
     return incidents
+
+def is_road_closed(edge_id):
+    """
+    Check if the road is closed by verifying the lane's allowed vehicle types.
+    
+    Parameters:
+    - edge_id: The ID of the edge to check.
+    
+    Returns:
+    - True if the road is closed, False otherwise.
+    """
+    try:
+        lanes = traci.edge.getLaneNumber(edge_id)
+        for lane_index in range(lanes):
+            allowed_vehicles = traci.lane.getAllowed(f"{edge_id}_{lane_index}")
+            if not allowed_vehicles:
+                return True  # Road is closed if no vehicle types are allowed
+        return False
+    except traci.TraCIException as e:
+        print(f"Error checking road closure for edge {edge_id}: {e}")
+        return False
+    except Exception as e:
+        print(f"Unexpected error in is_road_closed for edge {edge_id}: {e}")
+        return False
 
 def detect_accident(avg_speed, queue_length, tls_id, road_id, step, queue_history, adjacent_queues, edge_speeds):
     if is_red_light_active(tls_id, road_id):
