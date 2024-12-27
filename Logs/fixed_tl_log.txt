@@ -11,4 +11,3 @@ Dynamic fixed timing set for traffic light: 6
 Dynamic fixed timing set for traffic light: 60
 Dynamic fixed timing set for traffic light: 66
 Dynamic fixed timing set for traffic light: 80
-Simulation ended.
