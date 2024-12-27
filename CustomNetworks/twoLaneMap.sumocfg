@@ -3,5 +3,11 @@
         <net-file value="2LaneNetwork.net.xml"/>
         <route-files value="2LaneRoute.rou.xml"/>
     </input>
+    <routing>
+        <device.rerouting.probability value="1.0"/> <!-- Enable rerouting for all vehicles -->
+        <device.rerouting.period value="10"/> <!-- Vehicles reroute every 10 seconds -->
+        <device.rerouting.pre-period value="1"/>
+        <device.rerouting.adaptation-steps value="3"/> <!-- Time steps before rerouting adapts -->
+    </routing>
     <gui-settings-file value="view.settings.xml"/>
 </configuration>
