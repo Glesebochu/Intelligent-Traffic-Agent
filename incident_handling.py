@@ -4,7 +4,7 @@ import json
 import sumolib
 import pandas as pd
 from traci._trafficlight import Logic, Phase
-import copy
+import random
 
 # Configuration
 import os
@@ -19,7 +19,20 @@ RESPONSE_STRATEGIES = {
 # Thresholds for incident detection
 SURGE_QUEUE_THRESHOLD = 20  # Queue length above which a sudden surge is suspected
 
-def delayed_block_edge(edge_id, duration=100):
+def random_block_edge(edge_id='59', duration=100):
+    """
+    Randomly blocks an edge based on a given probability.
+
+    Parameters:
+    - edge_id (str): The ID of the edge to block.
+    - probability (float): The probability of blocking the edge (0 to 1).
+    - duration (int): Duration (in simulation steps) to keep the edge blocked.
+    """
+    if random.random() < 0.2:
+        print(f"Randomly blocking edge {edge_id} for {duration} steps.")
+        block_edge(edge_id, duration)
+
+def block_edge(edge_id, duration=100):
     """
     Blocks an edge dynamically, allowing existing vehicles to depart first, 
     while preventing new vehicles from entering.
@@ -72,7 +85,7 @@ def delayed_block_edge(edge_id, duration=100):
         print(f"Error handling edge {edge_id}: {e}")
     except Exception as e:
         print(f"Unexpected error: {e}")
-
+        
 def is_edge_blocked(edge_id):
     """
     Check if the road is closed by verifying the lane's disallowed vehicle types.
@@ -106,7 +119,7 @@ def is_edge_blocked(edge_id):
     except Exception as e:
         print(f"Unexpected error in is_road_closed for edge {edge_id}: {e}")
         return False
-        
+
 # A function for detecting incidents
 def detect_incidents():
     incidents = []
