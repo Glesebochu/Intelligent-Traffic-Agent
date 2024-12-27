@@ -9,49 +9,71 @@ import copy
 # Configuration
 import os
 
-# Code for handling incidents
-INCIDENT_TYPES = ["accident", "sudden_surge"]
+# Code for defining incidents and their responses
+INCIDENT_TYPES = ["road_closure", "sudden_surge"]
 RESPONSE_STRATEGIES = {
-    "accident": "reroute",
     "sudden_surge": "reroute",
     "road_closure": "reroute",
 }
 
 # Thresholds for incident detection
-ACCIDENT_SPEED_THRESHOLD = 1  # Speed below which an accident is suspected (m/s)
 SURGE_QUEUE_THRESHOLD = 20  # Queue length above which a sudden surge is suspected
 
-import random
-
-
-def block_edge_with_reroute(edge_id):
+def delayed_block_edge(edge_id, duration=100):
     """
-    Blocks an edge and forces vehicles to reroute dynamically.
+    Blocks an edge dynamically, allowing existing vehicles to depart first, 
+    while preventing new vehicles from entering.
+
+    Parameters:
+    - edge_id (str): The ID of the edge to block.
+    - duration (int): Duration (in simulation steps) to keep the edge blocked after clearing.
     """
     try:
-        # Enable rerouting for all vehicles to dynamically adjust their routes in response to the blocked edge
-        for veh_id in traci.vehicle.getIDList():
-            traci.vehicle.setParameter(veh_id, "device.rerouting.period", "10")  # Reroute every 10 seconds
-
-        # Block each lane of the edge
+        # 1. Prevent new vehicles from entering the edge
         num_lanes = traci.edge.getLaneNumber(edge_id)
         for lane_index in range(num_lanes):
             lane_id = f"{edge_id}_{lane_index}"
-            traci.lane.setDisallowed(lane_id, ["all"])  # Block the lane
+            traci.lane.setDisallowed(lane_id, ["passenger", "truck", "bus"])  # Block new entries
 
-        # Force reroute for vehicles already on the edge
-        for veh_id in traci.vehicle.getIDList():
-            if traci.vehicle.getRoadID(veh_id) == edge_id:
-                traci.vehicle.rerouteTraveltime(veh_id)  # Force rerouting immediately
+        print(f"Edge {edge_id} is now restricted to existing vehicles.")
 
-        print(f"Edge {edge_id} is now blocked, and rerouting is enabled.")
+        # 2. Wait until all existing vehicles leave the edge
+        while True:
+            vehicles_on_edge = [
+                veh_id for veh_id in traci.vehicle.getIDList() 
+                if traci.vehicle.getRoadID(veh_id) == edge_id
+            ]
+
+            if not vehicles_on_edge:  # No more vehicles on the edge
+                break  # Proceed to blocking the edge completely
+            traci.simulationStep()  # Continue simulation until clear
+
+        print(f"Edge {edge_id} is now clear of vehicles. Proceeding to full block.")
+
+        # 3. Block the edge completely for the specified duration
+        for lane_index in range(num_lanes):
+            lane_id = f"{edge_id}_{lane_index}"
+            traci.lane.setDisallowed(lane_id, ["all"])  # Fully block all vehicles
+
+        print(f"Edge {edge_id} is now fully blocked for {duration} steps.")
+
+        # 4. Keep the edge blocked for the specified duration
+        for _ in range(duration):
+            traci.simulationStep()
+
+        # 5. Unblock the edge after the duration ends
+        for lane_index in range(num_lanes):
+            lane_id = f"{edge_id}_{lane_index}"
+            traci.lane.setAllowed(lane_id, ["passenger", "truck", "bus"])  # Restore permissions
+
+        print(f"Edge {edge_id} is now unblocked.")
 
     except traci.TraCIException as e:
-        print(f"Error blocking edge {edge_id}: {e}")
+        print(f"Error handling edge {edge_id}: {e}")
     except Exception as e:
         print(f"Unexpected error: {e}")
 
-def is_edge_closed(edge_id):
+def is_edge_blocked(edge_id):
     """
     Check if the road is closed by verifying the lane's disallowed vehicle types.
     
@@ -65,12 +87,9 @@ def is_edge_closed(edge_id):
         # Get the number of lanes for the edge
         lanes = traci.edge.getLaneNumber(edge_id)
         
-        block_edge_with_reroute(edge_id)
-        
         for lane_index in range(lanes):
             lane_id = f"{edge_id}_{lane_index}"  # Construct the lane ID
             print(f"Checking disallowed vehicles for lane: {lane_id}")
-            
             
             # Get disallowed vehicle types for the lane
             disallowed_vehicles = traci.lane.getDisallowed(lane_id)
@@ -92,14 +111,11 @@ def is_edge_closed(edge_id):
 def detect_incidents():
     incidents = []
     for edge_id in traci.edge.getIDList():
-        avg_speed = traci.edge.getLastStepMeanSpeed(edge_id)
         queue_length = traci.edge.getLastStepHaltingNumber(edge_id)
-        tls_id = traci.edge.getTLSID(edge_id)
-        step = traci.simulation.getCurrentTime()
         
         if queue_length > SURGE_QUEUE_THRESHOLD:
             incidents.append(('sudden_surge', edge_id))
-        if is_edge_closed(edge_id):  # Assuming you have a function to check road closures
+        if is_edge_blocked(edge_id):  # Assuming you have a function to check road closures
             incidents.append(('road_closure', edge_id))
     
     return incidents
@@ -108,33 +124,5 @@ def handle_incidents(incidents):
     for incident_type, edge_id in incidents:
         strategy = RESPONSE_STRATEGIES[incident_type]
         if strategy == 'reroute':
-            print(f"Detected {incident_type} on edge {edge_id}.")
-            reroute_traffic(edge_id)
-
-def reroute_traffic(edge_id):
-    try:
-        # Get the list of vehicles on the affected edge
-        vehicles = traci.edge.getLastStepVehicleIDs(edge_id)
-        
-        for vehicle_id in vehicles:
-            # Find an alternative route for each vehicle
-            current_route = traci.vehicle.getRoute(vehicle_id)
-            alternative_route = find_alternative_route(current_route, edge_id)
-            
-            if alternative_route:
-                # Update the vehicle's route
-                traci.vehicle.setRoute(vehicle_id, alternative_route)
-                print(f"Rerouted vehicle {vehicle_id} from edge {edge_id} to alternative route.")
-            else:
-                print(f"No alternative route found for vehicle {vehicle_id} on edge {edge_id}.")
-    except traci.TraCIException as e:
-        print(f"Error rerouting traffic from edge {edge_id}: {e}")
-
-def find_alternative_route(current_route, blocked_edge):
-    # Implement logic to find an alternative route avoiding the blocked edge
-    # This is a placeholder implementation and should be replaced with actual routing logic
-    alternative_route = []
-    for edge in current_route:
-        if edge != blocked_edge:
-            alternative_route.append(edge)
-    return alternative_route if alternative_route else None
+            print(f"!! Detected {incident_type} on edge {edge_id}. !!")
+            print("Rerouting...")
