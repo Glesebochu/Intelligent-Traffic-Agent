@@ -1,269 +1,313 @@
-# import traci
-# import os
-# from traci._trafficlight import Logic, Phase
-
-# sumoBinary = "sumo-gui"
-# sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"  # Your configuration file
-
-# '''log_file = "Logs/fixed_tl_log.txt"
-# metrics_file = "Logs/baseline_metrics.txt"'''
-
-# # Traffic light phase definitions for intersections
-# fixed_phases_dict = {
-#      1: [Phase(20, "G"),# North-South green, East-West red for 20 seconds
-#          Phase(6, "y"),# North-South yellow, East-West red for 6 seconds
-#          Phase(20, "r"),# East-West green, North-South red for 20 seconds
-#          Phase(6, "r")# East-West yellow, North-South red for 6 seconds
-#          ],
-#      2: [Phase(20, "Gr"),
-#          Phase(6, "yr"),
-#          Phase(20, "rG"),
-#          Phase(6, "ry")
-#          ],
-#      3: [Phase(20, "Grr"),
-#          Phase(6, "yrr"),
-#          Phase(20, "rGr"),
-#          Phase(6, "ryr")
-#          ],
-#      4: [Phase(20, "Grrr"),
-#          Phase(6, "yrrr"),
-#          Phase(20, "rGGG"),
-#          Phase(6, "rrrr")
-#          ],
-#      5: [Phase(20, "Grrrr"),
-#          Phase(6, "yrrrr"),
-#          Phase(20, "rGGGG"),
-#          Phase(6, "rrrrr")
-#          ],
-#      6: [Phase(20, "GGGrrr"),
-#          Phase(6, "yyyrrr"),
-#          Phase(20, "rrrGGG"),
-#          Phase(6, "rrryyy")
-#          ],
-#      7: [Phase(20, "GGGrrrr"),
-#          Phase(6, "yyyrrrr"),
-#          Phase(20, "rrrGGGG"),
-#          Phase(6, "rrryyyy")
-#          ],
-
-#  }
-
-# '''for performance metrics
-# vehicle_travel_times = {} #{id: travel_time}
-# vehicle_departure_times = {}  # {id: departure_time}
-# total_waiting_time = 0
-# queue_lengths = {} # {tls_id: total_queued_vehicles}'''
-
-# def set_fixed_timing(tls_id):
-#      controlled_lanes = traci.trafficlight.getControlledLanes(tls_id)
-#      num_lanes = len(controlled_lanes)
-
-#      print(f"Traffic light {tls_id} controls {num_lanes} lanes.")
-
-#      if num_lanes in fixed_phases_dict:
-#          phases = fixed_phases_dict[num_lanes]
-#      else:
-#             print(f"Traffic light {tls_id} has unsupported lane count, {num_lanes}.")
-#             return
-
-#             logic = Logic("fixed_program", 0, 0, phases)
-
-#             logic = traci.trafficlight.getAllProgramLogics(tls_id)[0]
-
-
-#             traci.trafficlight.setProgramLogic(tls_id, logic)
-
-# '''def collect_metrics():
-#     global total_waiting_time
-
-#     # Track vehicle departures
-#     for vehicle_id in traci.simulation.getDepartedIDList():
-#         vehicle_departure_times[vehicle_id] = traci.simulation.getTime()
-
-#     # Collect travel time for vehicles that have arrived
-#     for vehicle_id in traci.simulation.getArrivedIDList():
-#         # Check if vehicle is in departure times dict
-#         if vehicle_id in vehicle_departure_times:
-#             travel_time = traci.simulation.getTime() - vehicle_departure_times[vehicle_id]
-#             vehicle_travel_times[vehicle_id] = travel_time
-#     for vehicle_id in traci.vehicle.getIDList():
-#         #waiting time for each vehicle
-#         try:
-#             waiting_time = traci.vehicle.getWaitingTime(vehicle_id)
-#             total_waiting_time += waiting_time
-#         except traci.exceptions.TraCIException as e:
-#             print(f"Warning: Failed to get waiting time for vehicle {vehicle_id}. {e}")
-
-#     #collect queue lengths
-#     for tls_id in traci.trafficlight.getIDList():
-#         queue_lengths[tls_id] = sum(traci.lane.getLastStepHaltingNumber(lane) for lane in traci.trafficlight.getControlledLanes(tls_id))
-# '''
-# '''def calculate_avg_travel_time():
-#     if len(vehicle_travel_times)>0:
-#         return sum(vehicle_travel_times.values())/len(vehicle_travel_times)
-#     return 0'''
-
-# '''def write_metrics_to_file():
-#     try:
-#         with open(metrics_file, "w") as file:
-#             file.write("Baseline Traffic Control Metrics\n")
-#             file.write("="*40 + "\n")
-#             average_travel_time = calculate_avg_travel_time()
-#             file.write(f"-Average Vehicle Travel Time: {average_travel_time:.2f}seconds\n")
-#             file.write(f"-Total Waiting Time: {total_waiting_time:.2f}seconds\n")
-#             file.write(f"-Queue Lengths at Traffic Lights:\n")
-#             for tls_id, queue_length in queue_lengths.items():
-#                 file.write(f" {tls_id}: {queue_length} vehicles\n")
-
-#         print(f"Metrics successfully written to {metrics_file}")
-#     except Exception as e:
-#         print(f"Error writing metrics: {e}")'''
-
-
-# def run_baseline():
-#     # Open a log file to record traffic light operations
-#     try:
-#         with open(log_file, "w") as log_handle:
-#             traci.start([sumoBinary, "-c", sumoConfig])
-
-#             log_handle.write("Traffic Light Phase Log\n")
-#             log_handle.write("=" * 40 + "\n")
-
-#             tls_ids = traci.trafficlight.getIDList()
-#             log_handle.write(f"Detected Traffic Lights: {tls_ids}\n")
-
-#             for tls_id in tls_ids:
-#                 set_fixed_timing(tls_id)
-#                 log_handle.write(f"Dynamic fixed timing set for traffic light: {tls_id}\n")
-
-#             simulation_end_time = 1000
-
-#             # Run the simulation
-#             while (traci.simulation.getTime() < simulation_end_time and
-#             traci.simulation.getMinExpectedNumber() > 0  # While vehicles are in the network
-#             ):
-#                 traci.simulationStep()  # Advance the simulation
-#                 collect_metrics()
-
-#             # End the simulation
-#             log_handle.write("Simulation ended.\n")
-#             print(f"Traffic light operations logged to {log_file}")
-
-#     finally:
-#         write_metrics_to_file()
-#         traci.close()
-# def test_my_performance():
-#     from performance_testing import gather_performance_data
-#     gather_performance_data()
-
-# # Main execution
-# if __name__ == "__main__":
-#     try:
-#         run_baseline()
-#         test_my_performance()
-#     except Exception as e:
-#         print(f"Error: {e}")
-#         traci.close()
 import traci
 import os
 from traci._trafficlight import Logic, Phase
+import pandas as pd
 
-# Configuration
+# SUMO configuration
 sumoBinary = "sumo-gui"
 sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"
-SIM_RUNS = 1
+output_file = "baseline_performance_metrics.csv"
+log_file = "Logs/fixed_tl_log.txt"
+metrics_file = "Logs/baseline_metrics.txt"
 
 # Traffic light phase definitions for intersections
 fixed_phases_dict = {
-    1: [Phase(20, "G"), Phase(6, "y"), Phase(20, "r"), Phase(6, "r")],
-    2: [Phase(20, "Gr"), Phase(6, "yr"), Phase(20, "rG"), Phase(6, "ry")],
-    3: [Phase(20, "Grr"), Phase(6, "yrr"), Phase(20, "rGr"), Phase(6, "ryr")],
-    4: [Phase(20, "Grrr"), Phase(6, "yrrr"), Phase(20, "rGGG"), Phase(6, "rrrr")],
-    5: [Phase(20, "Grrrr"), Phase(6, "yrrrr"), Phase(20, "rGGGG"), Phase(6, "rrrrr")],
+    1: [Phase(40, "G"), Phase(4, "y"), Phase(40, "r"), Phase(4, "r")],
+    2: [Phase(40, "Gr"), Phase(4, "yr"), Phase(40, "rG"), Phase(4, "ry")],
+    3: [Phase(40, "Grr"), Phase(4, "yrr"), Phase(40, "rGr"), Phase(4, "ryr")],
+    4: [Phase(40, "Grrr"), Phase(5, "yrrr"), Phase(40, "rGGG"), Phase(5, "rrrr")],
+    5: [Phase(40, "Grrrr"), Phase(5, "yrrrr"), Phase(40, "rGGGG"), Phase(5, "rrrrr")],
     6: [
-        Phase(20, "GGGrrr"),
+        Phase(40, "GGGrrr"),
         Phase(6, "yyyrrr"),
-        Phase(20, "rrrGGG"),
+        Phase(40, "rrrGGG"),
         Phase(6, "rrryyy"),
     ],
     7: [
-        Phase(20, "GGGrrrr"),
+        Phase(40, "GGGrrrr"),
         Phase(6, "yyyrrrr"),
-        Phase(20, "rrrGGGG"),
+        Phase(40, "rrrGGGG"),
         Phase(6, "rrryyyy"),
     ],
+    8: [
+        Phase(40, "GGGGrrrr"),
+        Phase(7, "yyyyrrrr"),
+        Phase(40, "rrrrGGGG"),
+        Phase(7, "rrrryyyy"),
+    ],
+    9: [
+        Phase(40, "GGGGGrrrrr"),
+        Phase(7, "yyyyyrrrrr"),
+        Phase(40, "rrrrrGGGGG"),
+        Phase(7, "rrrrryyyyy"),
+    ],
+    10: [
+        Phase(40, "GGGGGGrrrrrr"),
+        Phase(8, "yyyyyyrrrrrr"),
+        Phase(40, "rrrrrrGGGGGG"),
+        Phase(8, "rrrrrryyyyyy"),
+    ],
+    11: [
+        Phase(40, "GGGGGGGrrrrrrr"),
+        Phase(8, "yyyyyyyrrrrrrr"),
+        Phase(40, "rrrrrrrGGGGGGG"),
+        Phase(8, "rrrrrrryyyyyyy"),
+    ],
+    12: [
+        Phase(40, "GGGGGGGGrrrrrrrr"),
+        Phase(8, "yyyyyyyyrrrrrrrr"),
+        Phase(40, "rrrrrrrrGGGGGGGG"),
+        Phase(8, "rrrrrrrryyyyyyyy"),
+    ],
+    13: [
+        Phase(40, "GGGGGGGGGrrrrrrrrr"),
+        Phase(9, "yyyyyyyyyrrrrrrrrr"),
+        Phase(40, "rrrrrrrrrGGGGGGGGG"),
+        Phase(9, "rrrrrrrrryyyyyyyyy"),
+    ],
+    14: [
+        Phase(40, "GGGGGGGGGGrrrrrrrrrr"),
+        Phase(9, "yyyyyyyyyyrrrrrrrrrr"),
+        Phase(40, "rrrrrrrrrrGGGGGGGGGG"),
+        Phase(9, "rrrrrrrrrryyyyyyyyyy"),
+    ],
+    15: [
+        Phase(40, "GGGGGGGGGGGrrrrrrrrrrr"),
+        Phase(10, "yyyyyyyyyyyrrrrrrrrrrr"),
+        Phase(40, "rrrrrrrrrrrGGGGGGGGGGG"),
+        Phase(10, "rrrrrrrrrrryyyyyyyyyyy"),
+    ],
+    16: [
+        Phase(40, "GGGGGGGGGGGGrrrrrrrrrrrr"),
+        Phase(10, "yyyyyyyyyyyyrrrrrrrrrrrr"),
+        Phase(40, "rrrrrrrrrrrrGGGGGGGGGGGG"),
+        Phase(10, "rrrrrrrrrrrryyyyyyyyyyyy"),
+    ],
+    17: [
+        Phase(40, "GGGGGGGGGGGGGrrrrrrrrrrrrr"),
+        Phase(10, "yyyyyyyyyyyyyrrrrrrrrrrrrr"),
+        Phase(40, "rrrrrrrrrrrrrGGGGGGGGGGGGG"),
+        Phase(10, "rrrrrrrrrrrrryyyyyyyyyyyyy"),
+    ],
+    18: [
+        Phase(40, "GGGGGGGGGGGGGGrrrrrrrrrrrrrr"),
+        Phase(11, "yyyyyyyyyyyyyyrrrrrrrrrrrrrr"),
+        Phase(40, "rrrrrrrrrrrrrrGGGGGGGGGGGGGG"),
+        Phase(11, "rrrrrrrrrrrrrryyyyyyyyyyyyyy"),
+    ],
+    19: [
+        Phase(40, "GGGGGGGGGGGGGGGrrrrrrrrrrrrrrr"),
+        Phase(11, "yyyyyyyyyyyyyyyrrrrrrrrrrrrrrr"),
+        Phase(40, "rrrrrrrrrrrrrrrGGGGGGGGGGGGGGG"),
+        Phase(11, "rrrrrrrrrrrrrrryyyyyyyyyyyyyyy"),
+    ],
+    20: [
+        Phase(40, "GGGGGGGGGGGGGGGGrrrrrrrrrrrrrrrr"),
+        Phase(12, "yyyyyyyyyyyyyyyyrrrrrrrrrrrrrrrr"),
+        Phase(40, "rrrrrrrrrrrrrrrrGGGGGGGGGGGGGGGG"),
+        Phase(12, "rrrrrrrrrrrrrrrryyyyyyyyyyyyyyyy"),
+    ],
 }
+# Metrics
+vehicle_travel_times = {}
+vehicle_departure_times = {}
+total_waiting_time = 0
+queue_lengths = {}
+throughput = 0
+traffic_demand = "low"
+
+# Store metrics
+green_phase_durations = {}  # {tls_id: duration}
+red_phase_durations = {}  # {tls_id: duration}
+num_cars_entered = 0
 
 
-# Set fixed timing for traffic lights
+def track_phase_durations(tls_id):
+    # Get the current phase index and state
+    current_phase_index = traci.trafficlight.getPhase(tls_id)
+    current_phase = traci.trafficlight.getAllProgramLogics(tls_id)[0].phases[
+        current_phase_index
+    ]
+
+    # Track green phase durations
+    if "G" in current_phase.state:
+        if tls_id not in green_phase_durations:
+            green_phase_durations[tls_id] = 0
+        green_phase_durations[tls_id] += traci.trafficlight.getPhaseDuration(tls_id)
+
+    # Track red phase durations
+    if "r" in current_phase.state:
+        if tls_id not in red_phase_durations:
+            red_phase_durations[tls_id] = 0
+        red_phase_durations[tls_id] += traci.trafficlight.getPhaseDuration(tls_id)
+
+
 def set_fixed_timing(tls_id):
     controlled_lanes = traci.trafficlight.getControlledLanes(tls_id)
     num_lanes = len(controlled_lanes)
-    print(f"Traffic light {tls_id} controls {num_lanes} lanes.")
 
     if num_lanes in fixed_phases_dict:
+        # Retrieve phases from the dictionary based on lane count
         phases = fixed_phases_dict[num_lanes]
+        # print(f"TLS {tls_id} Total Green Phase Duration: {total_green_duration}s")
         logic = Logic("fixed_program", 0, 0, phases)
         traci.trafficlight.setProgramLogic(tls_id, logic)
     else:
-        print(f"Traffic light {tls_id} has unsupported lane count: {num_lanes}.")
+        print(f"Unsupported lane count {num_lanes} at traffic light {tls_id}")
 
 
-# Run baseline simulation
 def run_baseline():
+    global num_cars_entered, total_waiting_time, throughput
+    # Open a log file to record traffic light operations
     try:
-        traci.start([sumoBinary, "-c", sumoConfig])
+        with open(log_file, "w") as log_handle:
+            traci.start([sumoBinary, "-c", sumoConfig])
+            # Count cars dynamically as they enter
+            num_cars_entered = 0
 
-        print("Starting baseline simulation...")
+            log_handle.write("Traffic Light Phase Log\n")
+            log_handle.write("=" * 40 + "\n")
 
-        tls_ids = traci.trafficlight.getIDList()
-        print(f"Detected Traffic Lights: {tls_ids}")
+            tls_ids = traci.trafficlight.getIDList()
+            log_handle.write(f"Detected Traffic Lights: {tls_ids}\n")
 
-        for tls_id in tls_ids:
-            set_fixed_timing(tls_id)
-            print(f"Fixed timing set for traffic light: {tls_id}")
+            for tls_id in tls_ids:
+                set_fixed_timing(tls_id)
+                log_handle.write(
+                    f"Dynamic fixed timing set for traffic light: {tls_id}\n"
+                )
 
-        # Simulation loop
-        simulation_end_time = traci.simulation.getEndTime()
-        print(f"Simulation end time: {simulation_end_time}")
-        while (
-            traci.simulation.getTime() < simulation_end_time
-            and traci.simulation.getMinExpectedNumber() > 0
-        ):
-            traci.simulationStep()
+            # Run the simulation
+            while traci.simulation.getMinExpectedNumber() > 0:
+                traci.simulationStep()  # Advance the simulation
+                # Count cars as they enter dynamically
+                num_cars_entered += len(traci.simulation.getDepartedIDList())
+                # Metrics collection
+                for tls_id in traci.trafficlight.getIDList():
+                    track_phase_durations(tls_id)
 
-        print(
-            "Baseline simulation completed. SUMO remains open for performance testing."
-        )
+                for vehicle_id in traci.simulation.getDepartedIDList():
+                    vehicle_departure_times[vehicle_id] = traci.simulation.getTime()
+                # Get throughput
+                for vehicle_id in traci.simulation.getArrivedIDList():
+                    throughput += 1
+                    if vehicle_id in vehicle_departure_times:
+                        travel_time = (
+                            traci.simulation.getTime()
+                            - vehicle_departure_times[vehicle_id]
+                        )
+                    vehicle_travel_times[vehicle_id] = travel_time
+                # Get total waiting time
+                for vehicle_id in traci.vehicle.getIDList():
+                    try:
+                        total_waiting_time += traci.vehicle.getWaitingTime(vehicle_id)
+                    except traci.exceptions.TraCIException as e:
+                        print(
+                            f"Warning: Failed to get waiting time for vehicle {vehicle_id}. {e}"
+                        )
+                # Get queue length
+                # print(
+                #     f"Number of traffic light IDs: {len(traci.trafficlight.getIDList())}"
+                # )
+                # print(f"COntrolled lanes: {len(traci.trafficlight.getControlledLanes())}")
+                for tls_id in traci.trafficlight.getIDList():
+                    # print(f"Number of controlled lanes for traffic light {tls_id}: {len(traci.trafficlight.getControlledLanes(tls_id))}")
+                    # print(f"T")
+                    # queue_lengths[tls_id] = sum(traci.lane.getLastStepHaltingNumber(lane) for lane in traci.trafficlight.getControlledLanes(tls_id))
+                    if tls_id not in queue_lengths:
+                        queue_lengths[tls_id] = 0  # Initialize
+                    queue_lengths[tls_id] = max(
+                        queue_lengths[tls_id],  # Keep the max value so far
+                        sum(
+                            traci.lane.getLastStepHaltingNumber(lane)
+                            for lane in traci.trafficlight.getControlledLanes(tls_id)
+                        ),
+                    )
+            # print(f"Queue length: {queue_lengths}")
+            # print(f"num of cars: {num_cars_entered}")
+            for tls_id in traci.trafficlight.getIDList():
+                print(
+                    f"TLS {tls_id} - Green Phase Duration: {green_phase_durations.get(tls_id, 0)}s, Red Phase Duration: {red_phase_durations.get(tls_id, 0)}s"
+                )
+            # Determine traffic demand
+            if num_cars_entered <= 300:
+                traffic_demand = "low"
+            elif num_cars_entered <= 600:
+                traffic_demand = "mid"
+            else:
+                traffic_demand = "high"
+
+            avg_travel_time = (
+                sum(vehicle_travel_times.values()) / len(vehicle_travel_times)
+                if vehicle_travel_times
+                else 0
+            )
+            # total_queue_length = sum(queue_lengths.values())
+
+            # Write metrics to CSV
+            data = []
+            for tls_id in traci.trafficlight.getIDList():
+                data.append(
+                    [
+                        tls_id,
+                        traffic_demand,
+                        green_phase_durations.get(tls_id, 0),
+                        red_phase_durations.get(tls_id, 0),
+                        total_waiting_time,
+                        avg_travel_time,
+                        throughput,
+                        queue_lengths.get(tls_id, 0),  # Include queue length
+                    ]
+                )
+                # print(data)
+            df = pd.DataFrame(
+                data,
+                columns=[
+                    "id",
+                    "traffic_demand",
+                    "green_phase_duration",
+                    "red_phase_duration",
+                    "total_waiting_time",
+                    "avg_travel_time",
+                    "throughput",
+                    "queue_length",
+                ],
+            )
+            df.to_csv(output_file, index=False)
+
+            try:
+                with open(metrics_file, "w") as file:
+                    file.write("Baseline Traffic Control Metrics\n")
+                    file.write("=" * 40 + "\n")
+                    file.write(
+                        f"-Average Vehicle Travel Time: {avg_travel_time:.2f} seconds\n"
+                    )
+                    file.write(
+                        f"-Total Waiting Time: {total_waiting_time:.2f} seconds\n"
+                    )
+                    file.write(f"-Queue Lengths at Traffic Lights:\n")
+                    for tls_id, queue_length in queue_lengths.items():
+                        file.write(f" {tls_id}: {queue_length} vehicles\n")
+
+                print(f"Metrics successfully written to {metrics_file}")
+            except Exception as e:
+                print(f"Error writing metrics: {e}")
+
+            # End the simulation
+            log_handle.write("Simulation ended.\n")
+            print(f"Traffic light operations logged to {log_file}")
+
+            traci.close()
 
     except Exception as e:
-        print(f"Error during baseline simulation: {e}")
-
-
-# Performance testing function call
-def test_my_performance():
-    try:
-        from performance_testing import gather_performance_data
-
-        gather_performance_data(SIM_RUNS)
-    except ImportError as e:
-        print(f"Error importing performance_testing module: {e}")
-    except Exception as e:
-        print(f"Error running performance tests: {e}")
+        print(f"Error: {e}")
+        traci.close()
 
 
 # Main execution
 if __name__ == "__main__":
     try:
-        # Run baseline simulation
         run_baseline()
-
-        # Run performance tests
-        test_my_performance()
-
     except Exception as e:
         print(f"Error: {e}")
-    finally:
-        if traci.isLoaded():
-            print("Closing SUMO after performance tests.")
-            traci.close()
+        traci.close()
