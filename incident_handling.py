@@ -131,7 +131,10 @@ def detect_incidents():
         if is_edge_blocked(edge_id):  # Assuming you have a function to check road closures
             incidents.append(('road_closure', edge_id))
     
-    return incidents
+    if incidents:
+        handle_incidents(incidents)
+    else:
+        print("No incidents detected.")
 
 def handle_incidents(incidents):
     for incident_type, edge_id in incidents:
