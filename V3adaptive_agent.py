@@ -222,7 +222,7 @@ def run_adaptive_agent():
 
     
     step = 0
-    while step < 200:
+    while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         step += 1
         apply_random_scenarios(step)

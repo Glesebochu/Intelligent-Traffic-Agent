@@ -1,15 +1,2 @@
 Adaptive Traffic Control Metrics
 ========================================
--Average Vehicle Travel Time: 43.00 seconds
--Total Waiting Time: 99766.00 seconds
--Queue Lengths at Traffic Lights:
- 1: 60 vehicles
- 14: 10 vehicles
- 196: 17 vehicles
- 344: 4 vehicles
- 35: 5 vehicles
- 55: 4 vehicles
- 6: 15 vehicles
- 60: 6 vehicles
- 66: 11 vehicles
- 80: 5 vehicles

@@ -6,6 +6,9 @@ import pandas as pd
 from traci._trafficlight import Logic, Phase
 import copy
 from incident_handling import block_edge, detect_incidents, is_edge_blocked, random_block_edge  # Import the function
+from Python_files.performance_testing_AD import gather_performance_data, initialize_metrics
+from Python_files.random_scenarios import apply_random_scenarios
+
 
 # Configuration
 import os
@@ -168,11 +171,13 @@ def run_adaptive_agent():
         adjusted_phases = {tls_id: None for tls_id in tls_ids}
 
         step = 0
-        while step < 1000: #change to "while traci.simulation.getMinExpectedNumber() > 0:  # Until simulation ends"
+        while step < 100: #change to "while traci.simulation.getMinExpectedNumber() > 0:  # Until simulation ends"
             try:
                 
                 traci.simulationStep()
                 step += 1
+                # apply_random_scenarios(step)
+                # gather_performance_data()
 
                 # Data collection for each simulation step
                 step_queue_data = {"step": step, "data": []}
@@ -292,6 +297,8 @@ def run_adaptive_agent():
                     
                 # Check if there are any incidents
                 detect_incidents()
+                
+
 
             except Exception as e:
                 print(f"Error during simulation step {step}: {e}")
