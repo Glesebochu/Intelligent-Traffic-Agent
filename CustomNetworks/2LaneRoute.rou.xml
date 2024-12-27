@@ -612,8 +612,7 @@
     <trip id="598" depart="299.00" from="11" to="714"/>
     <trip id="599" depart="299.50" from="61" to="-26"/>
     <trip id="600" depart="300.00" from="435" to="-551"/>
-</routes>
-=======
+
     <!-- MID -->
     <!--<trip id="601" depart="300.50" from="-9" to="342"/>
     <trip id="602" depart="301.00" from="-61" to="-61"/>
@@ -2015,4 +2014,3 @@
     <trip id="1998" depart="999.00" from="11" to="-205"/>
     <trip id="1999" depart="999.50" from="347" to="30"/> -->
 </routes> 
->>>>>>> 22c34903488d8757e4b0daf0fc8ac228bf5d3dca
