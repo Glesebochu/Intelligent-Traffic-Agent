@@ -7,6 +7,7 @@ vehicle_departure_times = {}  # Tracks departure times for each vehicle
 queue_lengths = {}  # Queue lengths at traffic lights
 green_phase_durations = {}  # Tracks green light durations for each traffic light
 red_phase_durations = {}  # Tracks red light durations for each traffic light
+disappeared_vehicles = set()  # Set to store IDs of vehicles that disappeared
 
 # Global variables
 output_file = "Logs/performance_data.csv"
@@ -15,6 +16,7 @@ total_waiting_time = 0  # Total waiting time for all vehicles
 throughput = 0  # Total number of vehicles that have arrived
 num_cars_entered = 0  # Number of cars that entered the network
 tls_ids = []  # List of traffic light IDs
+non_arrived_vehicles = set()  # Set to store IDs of vehicles that didn't arrive
 
 
 # Initializes metrics before simulation begins
@@ -41,7 +43,7 @@ def gather_performance_data():
     Collects performance metrics dynamically based on adaptive traffic control inputs.
     Also writes results to CSV and log files.
     """
-    global tls_ids, total_waiting_time, throughput, num_cars_entered
+    global tls_ids, total_waiting_time, throughput, num_cars_entered, non_arrived_vehicles, disappeared_vehicles
     try:
         # Count vehicles entered dynamically
         num_cars_entered += len(traci.simulation.getDepartedIDList())
@@ -92,6 +94,7 @@ def gather_performance_data():
         # Vehicle Metrics
         for vehicle_id in traci.simulation.getDepartedIDList():
             vehicle_departure_times[vehicle_id] = traci.simulation.getTime()
+            non_arrived_vehicles.add(vehicle_id)  # Add to non-arrived set
 
         for vehicle_id in traci.simulation.getArrivedIDList():
             throughput += 1  # Increment throughput for each vehicle that arrives
@@ -100,6 +103,12 @@ def gather_performance_data():
                     traci.simulation.getTime() - vehicle_departure_times[vehicle_id]
                 )
                 vehicle_travel_times[vehicle_id] = travel_time
+            non_arrived_vehicles.discard(vehicle_id)  # Remove from non-arrived set
+
+        # Identify disappeared vehicles
+        current_vehicle_ids = set(traci.vehicle.getIDList())
+        disappeared_vehicles.update(non_arrived_vehicles - current_vehicle_ids)
+        non_arrived_vehicles.intersection_update(current_vehicle_ids)
 
         for vehicle_id in traci.vehicle.getIDList():
             try:
@@ -155,6 +164,12 @@ def gather_performance_data():
             file.write("=" * 40 + "\n")
             file.write(f"-Average Vehicle Travel Time: {avg_travel_time:.2f} seconds\n")
             file.write(f"-Total Waiting Time: {total_waiting_time:.2f} seconds\n")
+            file.write(f"Vehicles that have entered the network: {num_cars_entered}\n")
+            file.write(f"Vehicles that didn't arrive: {non_arrived_vehicles}\n")
+            file.write(f"Count of Vehicles that didn't arrive: {len(non_arrived_vehicles)}\n")
+            file.write(f"Vehicles that disappeared: {disappeared_vehicles}\n")
+            file.write(f"Count of Vehicles that disappeared: {len(disappeared_vehicles)}\n")
+            
             file.write(f"-Queue Lengths at Traffic Lights:\n")
             for tls_id, queue_length in queue_lengths.items():
                 file.write(f" {tls_id}: {queue_length} vehicles\n")

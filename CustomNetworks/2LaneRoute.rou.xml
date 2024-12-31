@@ -311,7 +311,7 @@
     <trip id="298" depart="149.00" from="26" to="-560"/>
     <trip id="299" depart="149.50" from="-11" to="868"/>
     <!-- LOW -->
-    <trip id="300" depart="150.00" from="-26" to="57"/>
+    <!-- <trip id="300" depart="150.00" from="-26" to="57"/>
     <trip id="301" depart="150.50" from="-726" to="-59"/>
     <trip id="302" depart="151.00" from="25" to="543"/>
     <trip id="303" depart="151.50" from="-726" to="67"/>
@@ -611,9 +611,9 @@
     <trip id="597" depart="298.50" from="-560" to="7"/>
     <trip id="598" depart="299.00" from="11" to="714"/>
     <trip id="599" depart="299.50" from="61" to="-26"/>
-    <trip id="600" depart="300.00" from="435" to="-551"/>
+    <trip id="600" depart="300.00" from="435" to="-551"/> -->
     <!-- MID -->
-    <trip id="601" depart="300.50" from="-9" to="342"/>
+    <!-- <trip id="601" depart="300.50" from="-9" to="342"/>
     <trip id="602" depart="301.00" from="-61" to="-61"/>
     <trip id="603" depart="301.50" from="-57" to="-7"/>
     <trip id="604" depart="302.00" from="-347" to="341"/>
@@ -2011,5 +2011,5 @@
     <trip id="1996" depart="998.00" from="-7" to="-343"/>
     <trip id="1997" depart="998.50" from="-3" to="26"/>
     <trip id="1998" depart="999.00" from="11" to="-205"/>
-    <trip id="1999" depart="999.50" from="347" to="30"/>
+    <trip id="1999" depart="999.50" from="347" to="30"/> -->
 </routes> 
