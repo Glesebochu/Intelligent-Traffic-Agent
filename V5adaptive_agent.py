@@ -293,7 +293,7 @@ def run_adaptive_agent():
                 
                 # ! Test: block an edge after removing all trips that start and end there
                 test_edge_id = "59"
-                random_block_edge(test_edge_id)
+                step = random_block_edge(step, test_edge_id)
                     
                 # Check if there are any incidents
                 if(step % 2 == 10):

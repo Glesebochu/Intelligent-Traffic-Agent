@@ -19,7 +19,7 @@ RESPONSE_STRATEGIES = {
 # Thresholds for incident detection
 SURGE_QUEUE_THRESHOLD = 30  # Queue length above which a sudden surge is suspected
 
-def random_block_edge(edge_id='59', duration=100):
+def random_block_edge(step, edge_id='59', duration=100):
     """
     Randomly blocks an edge based on a given probability.
 
@@ -28,11 +28,15 @@ def random_block_edge(edge_id='59', duration=100):
     - probability (float): The probability of blocking the edge (0 to 1).
     - duration (int): Duration (in simulation steps) to keep the edge blocked.
     """
+    final_step = 0
+    
     if random.random() < 0.01:
         print(f"Randomly blocking edge {edge_id} for {duration} steps.")
-        block_edge(edge_id, duration)
+        final_step = block_edge(step, edge_id, duration)
+    
+    return final_step
 
-def block_edge(edge_id, duration=100):
+def block_edge(step, edge_id, duration=100):
     """
     Blocks an edge dynamically, allowing existing vehicles to depart first, 
     while preventing new vehicles from entering.
@@ -60,6 +64,7 @@ def block_edge(edge_id, duration=100):
             if not vehicles_on_edge:  # No more vehicles on the edge
                 break  # Proceed to blocking the edge completely
             traci.simulationStep()  # Continue simulation until clear
+            step += 1
 
         print(f"Edge {edge_id} is now clear of vehicles. Proceeding to full block.")
 
@@ -73,6 +78,7 @@ def block_edge(edge_id, duration=100):
         # 4. Keep the edge blocked for the specified duration
         for _ in range(duration):
             traci.simulationStep()
+            step += 1
 
         # 5. Unblock the edge after the duration ends
         for lane_index in range(num_lanes):
@@ -85,6 +91,8 @@ def block_edge(edge_id, duration=100):
         print(f"Error handling edge {edge_id}: {e}")
     except Exception as e:
         print(f"Unexpected error: {e}")
+        
+    return step
         
 def is_edge_blocked(edge_id):
     """
