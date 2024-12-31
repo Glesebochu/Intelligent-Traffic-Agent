@@ -19,7 +19,7 @@ RESPONSE_STRATEGIES = {
 # Thresholds for incident detection
 SURGE_QUEUE_THRESHOLD = 30  # Queue length above which a sudden surge is suspected
 
-def random_block_edge(step, edge_id='59', duration=100):
+def random_block_edge(step, edge_id='59', duration=50):
     """
     Randomly blocks an edge based on a given probability.
 
@@ -36,7 +36,7 @@ def random_block_edge(step, edge_id='59', duration=100):
     
     return final_step
 
-def block_edge(step, edge_id, duration=100):
+def block_edge(step, edge_id, duration=50):
     """
     Blocks an edge dynamically, allowing existing vehicles to depart first, 
     while preventing new vehicles from entering.
