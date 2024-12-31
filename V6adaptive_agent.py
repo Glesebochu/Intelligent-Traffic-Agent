@@ -187,6 +187,8 @@ def run_adaptive_agent():
         
         # Track which phases have been adjusted
         adjusted_phases = {tls_id: None for tls_id in tls_ids}
+        
+        initialize_metrics()
 
         step = 0
         while traci.simulation.getMinExpectedNumber() > 0:  # Until simulation ends
@@ -195,7 +197,7 @@ def run_adaptive_agent():
                 traci.simulationStep()
                 step += 1
                 # apply_random_scenarios(step)
-                # gather_performance_data()
+                gather_performance_data()
 
                 # Data collection for each simulation step
                 step_queue_data = {"step": step, "data": []}
@@ -274,7 +276,7 @@ def run_adaptive_agent():
                         )
                         detractedTime = fixed_phases[tls_id][current_phase_index]["duration"] - new_duration
                         if detractedTime > 0:
-                            print(f"Detracting red phase for TLS {tls_id} by {detractedTime} seconds due to the highest queue road {highest_queue_road} at sim step {step}\n")
+                            # print(f"Detracting red phase for TLS {tls_id} by {detractedTime} seconds due to the highest queue road {highest_queue_road} at sim step {step}\n")
                             traci.trafficlight.setPhaseDuration(tls_id, new_duration)
                             adjusted_phases[tls_id] = current_phase_index
 
@@ -289,7 +291,7 @@ def run_adaptive_agent():
                             fixed_phases[tls_id][current_phase_index]["duration"] + extra_green_time
                         )
                         if(extra_green_time > 3):
-                            print(f"Extending green phase for TLS {tls_id} by {extra_green_time} seconds. for the highest queue road {highest_queue_road} at sim step {step}\n")
+                            # print(f"Extending green phase for TLS {tls_id} by {extra_green_time} seconds. for the highest queue road {highest_queue_road} at sim step {step}\n")
                             traci.trafficlight.setPhaseDuration(tls_id, new_duration)
                             adjusted_phases[tls_id] = current_phase_index
                                     
@@ -315,10 +317,13 @@ def run_adaptive_agent():
                 
                 # ! Test: block an edge after removing all trips that start and end there
                 test_edge_id = "59"
-                step = random_block_edge(step, test_edge_id)
+                # step = random_block_edge(step, test_edge_id, 25)
+                
+                if(step % 50 == 0):
+                    step = block_edge(step, test_edge_id, 25)
                     
                 # Check if there are any incidents
-                if(step % 2 == 10):
+                if(step % 2 == 0):
                     detect_incidents()
                 
 
