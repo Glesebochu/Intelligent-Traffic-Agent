@@ -1,3 +1,4 @@
+from Python_files.performance_testing_AD import gather_performance_data
 import traci
 import os
 import json
@@ -79,6 +80,7 @@ def block_edge(step, edge_id, duration=50):
         for _ in range(duration):
             traci.simulationStep()
             step += 1
+            gather_performance_data()
 
         # 5. Unblock the edge after the duration ends
         for lane_index in range(num_lanes):
