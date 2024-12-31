@@ -28,7 +28,7 @@ def random_block_edge(step, edge_id='59', duration=100):
     - probability (float): The probability of blocking the edge (0 to 1).
     - duration (int): Duration (in simulation steps) to keep the edge blocked.
     """
-    final_step = 0
+    final_step = step
     
     if random.random() < 0.01:
         print(f"Randomly blocking edge {edge_id} for {duration} steps.")
