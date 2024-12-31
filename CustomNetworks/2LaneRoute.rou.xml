@@ -612,7 +612,6 @@
     <trip id="598" depart="299.00" from="11" to="714"/>
     <trip id="599" depart="299.50" from="61" to="-26"/>
     <trip id="600" depart="300.00" from="435" to="-551"/>
-
     <!-- MID -->
     <trip id="601" depart="300.50" from="-9" to="342"/>
     <trip id="602" depart="301.00" from="-61" to="-61"/>
