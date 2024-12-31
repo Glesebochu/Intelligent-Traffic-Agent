@@ -189,7 +189,7 @@ def run_adaptive_agent():
         adjusted_phases = {tls_id: None for tls_id in tls_ids}
 
         step = 0
-        while step < 1000: #change to "while traci.simulation.getMinExpectedNumber() > 0:  # Until simulation ends"
+        while traci.simulation.getMinExpectedNumber() > 0:  # Until simulation ends
             try:
                 
                 traci.simulationStep()
@@ -292,9 +292,7 @@ def run_adaptive_agent():
                             print(f"Extending green phase for TLS {tls_id} by {extra_green_time} seconds. for the highest queue road {highest_queue_road} at sim step {step}\n")
                             traci.trafficlight.setPhaseDuration(tls_id, new_duration)
                             adjusted_phases[tls_id] = current_phase_index
-
-                 
-                                
+                                    
                 # Collect average speed for edges
                 try:
                     edge_ids = traci.edge.getIDList()
@@ -317,7 +315,7 @@ def run_adaptive_agent():
                 
                 # ! Test: block an edge after removing all trips that start and end there
                 test_edge_id = "59"
-                random_block_edge(test_edge_id)
+                step = random_block_edge(step, test_edge_id)
                     
                 # Check if there are any incidents
                 if(step % 2 == 10):
