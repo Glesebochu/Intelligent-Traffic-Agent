@@ -17,7 +17,7 @@ RESPONSE_STRATEGIES = {
 }
 
 # Thresholds for incident detection
-SURGE_QUEUE_THRESHOLD = 20  # Queue length above which a sudden surge is suspected
+SURGE_QUEUE_THRESHOLD = 30  # Queue length above which a sudden surge is suspected
 
 def random_block_edge(edge_id='59', duration=100):
     """
