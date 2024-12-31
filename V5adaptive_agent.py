@@ -171,7 +171,7 @@ def run_adaptive_agent():
         adjusted_phases = {tls_id: None for tls_id in tls_ids}
 
         step = 0
-        while step < 1000: #change to "while traci.simulation.getMinExpectedNumber() > 0:  # Until simulation ends"
+        while traci.simulation.getMinExpectedNumber() > 0:  # Until simulation ends
             try:
                 
                 traci.simulationStep()
