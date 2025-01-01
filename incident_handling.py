@@ -1,3 +1,4 @@
+import traceback
 from Python_files.performance_testing_AD import gather_performance_data
 import traci
 import os
@@ -52,29 +53,24 @@ def block_edge(step, edge_id, duration=50):
         for lane_index in range(num_lanes):
             lane_id = f"{edge_id}_{lane_index}"
             traci.lane.setDisallowed(lane_id, ["all"])  # Block new entries
+            traci.edge.adaptTraveltime(edge_id, 99999)
 
         print(f"Edge {edge_id} is now restricted to existing vehicles.")
 
-        # 2. Wait until all existing vehicles leave the edge
-        while True:
-            vehicles_on_edge = [
-                veh_id for veh_id in traci.vehicle.getIDList() 
-                if traci.vehicle.getRoadID(veh_id) == edge_id
-            ]
+        # 2. Recalculate routes for all vehicles in the network that pass by the edge to be blocked
+        vehicle_ids = traci.vehicle.getIDList()
+        for vehicle_id in vehicle_ids:
+            current_route = traci.vehicle.getRoute(vehicle_id)
+            if edge_id in current_route:
+                print(f"Current route for vehicle {vehicle_id}: {current_route}")
+                traci.vehicle.rerouteTraveltime(vehicle_id)
+                print(f"New route for vehicle {vehicle_id}: {traci.vehicle.getRoute(vehicle_id)}")
 
-            if not vehicles_on_edge:  # No more vehicles on the edge
-                break  # Proceed to blocking the edge completely
-            traci.simulationStep()  # Continue simulation until clear
+        # 3. Wait until all existing vehicles leave the edge
+        while traci.edge.getLastStepVehicleNumber(edge_id) > 0:
+            traci.simulationStep()
             step += 1
-
-        print(f"Edge {edge_id} is now clear of vehicles. Proceeding to full block.")
-
-        # 3. Block the edge completely for the specified duration
-        for lane_index in range(num_lanes):
-            lane_id = f"{edge_id}_{lane_index}"
-            traci.lane.setDisallowed(lane_id, ["all"])  # Fully block all vehicles
-
-        print(f"Edge {edge_id} is now fully blocked for {duration} steps.")
+            gather_performance_data()
 
         # 4. Keep the edge blocked for the specified duration
         for _ in range(duration):
@@ -82,20 +78,21 @@ def block_edge(step, edge_id, duration=50):
             step += 1
             gather_performance_data()
 
-        # 5. Unblock the edge after the duration ends
+        # 5. Allow new vehicles to enter the edge again
         for lane_index in range(num_lanes):
             lane_id = f"{edge_id}_{lane_index}"
-            traci.lane.setAllowed(lane_id, ["all"])  # Restore permissions
+            traci.lane.setAllowed(lane_id, ["all"])  # Unblock new entries
+            traci.edge.adaptTraveltime(edge_id, 25)
 
-        print(f"Edge {edge_id} is now unblocked.")
+        print(f"Edge {edge_id} is now open to all vehicles again.")
 
-    except traci.TraCIException as e:
-        print(f"Error handling edge {edge_id}: {e}")
     except Exception as e:
-        print(f"Unexpected error: {e}")
-        
-    return step
-        
+        print(f"Error during blocking edge {edge_id} at step {step}: {e}")
+        traceback.print_exc()
+
+    return step   
+
+
 def is_edge_blocked(edge_id):
     """
     Check if the road is closed by verifying the lane's disallowed vehicle types.
