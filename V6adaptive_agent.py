@@ -319,12 +319,16 @@ def run_adaptive_agent():
                 test_edge_id = "59"
                 # step = random_block_edge(step, test_edge_id, 25)
                 
-                if(step % 50 == 0):
+                if(step % 100 == 0):
+                    # vehicle_ids = traci.vehicle.getIDList()
+                    # for vehicle_id in vehicle_ids:
+                    #     traci.vehicle.setParameter(vehicle_id, "device.rerouting.mode", "8")
+
                     step = block_edge(step, test_edge_id, 25)
                     
                 # Check if there are any incidents
-                if(step % 2 == 0):
-                    detect_incidents()
+                # if(step % 2 == 0):
+                #     detect_incidents()
                 
 
 
