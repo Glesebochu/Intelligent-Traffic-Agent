@@ -1,7 +1,7 @@
 <additional>
     <!-- Reroutes vehicles passing through edges="1i 2i" every 60s -->
     <rerouter id="myRerouter" edges="59">
-        <param key="device.rerouting.period" value="10" />
+        <param key="device.rerouting.period" value="60" />
         <param key="device.rerouting.adaptation-steps" value="10" />
         <param key="device.rerouting.withTaz" value="true" />
     </rerouter>
