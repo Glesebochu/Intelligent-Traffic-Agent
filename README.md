@@ -45,3 +45,7 @@ An intelligent agent within the Simulation of Urban MObility (SUMO) platform to 
 ## Installation Guide
 
 You can get started on our agent by cloning this repo and following the installation steps [here](INSTALLATION.md).
+
+## Taking our software out for a run
+
+Go to our [V6 Adaptive Agent](Agents/V6adaptive_agent.py) and just run it with `python -u`.
