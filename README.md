@@ -5,8 +5,8 @@ An intelligent agent within the Simulation of Urban MObility (SUMO) platform to 
 ### **Simulation Environment**
 
 - **SUMO Platform:** Utilize the open-source SUMO software for simulating urban traffic.
-- **Urban Network:** Use existing city maps or create a synthetic urban road network with multiple intersections and varying road types.
-- **Traffic Demand:** Simulate realistic traffic flows, including rush hours, variable vehicle types, and unpredictable events.
+- **Urban Network:** Create a synthetic urban road network with multiple intersections and roads.
+- **Traffic Demand:** Simulate realistic traffic flows, including rush hours, surges of vehicles, and unpredictable events.
 
 ### **Intelligent Agent Design**
 
@@ -19,7 +19,7 @@ An intelligent agent within the Simulation of Urban MObility (SUMO) platform to 
     - A dynamic urban traffic network simulated by SUMO.
     - Includes multiple intersections, road segments, and traffic flows.
   - **Actuators:**
-    - Control over traffic signal phases and timings at intersections.
+    - Control over traffic signal durations at intersections.
     - Ability to implement adaptive signal control strategies.
   - **Sensors:**
     - Real-time traffic data, including vehicle counts, speeds, queue lengths, and waiting times.
@@ -39,5 +39,9 @@ An intelligent agent within the Simulation of Urban MObility (SUMO) platform to 
   - Simulate different traffic volumes, including peak and off-peak hours.
 - **Random Events:**
   - Introduce incidents such as sudden surges or road closures to test the agent's adaptability.
-- **Environmental Factors:**
+- **Environmental Factors: (\*Future Extension)**
   - Consider weather conditions that may affect traffic flow (e.g., rain, fog).
+
+## Installation Guide
+
+You can get started on our agent by cloning this repo and following the installation steps [here](INSTALLATION.md).
