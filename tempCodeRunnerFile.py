@@ -1,1 +1,0 @@
-gather_performance_data()

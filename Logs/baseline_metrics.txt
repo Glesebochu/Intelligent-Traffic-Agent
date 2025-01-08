@@ -1,20 +1,15 @@
-Adaptive Traffic Control Metrics
+Baseline Traffic Control Metrics
 ========================================
--Average Vehicle Travel Time: 183.54 seconds
--Total Waiting Time: 255539.00 seconds
-Vehicles that have entered the network: 300
-Vehicles that didn't arrive: set()
-Count of Vehicles that didn't arrive: 0
-Vehicles that disappeared: set()
-Count of Vehicles that disappeared: 0
+-Average Vehicle Travel Time: 210.53 seconds
+-Total Waiting Time: 560301.00 seconds
 -Queue Lengths at Traffic Lights:
- 1: 56 vehicles
- 14: 66 vehicles
- 196: 15 vehicles
- 344: 23 vehicles
- 35: 28 vehicles
- 55: 26 vehicles
- 6: 15 vehicles
- 60: 27 vehicles
- 66: 31 vehicles
- 80: 2 vehicles
+ 1: 146 vehicles
+ 14: 51 vehicles
+ 196: 28 vehicles
+ 344: 32 vehicles
+ 35: 29 vehicles
+ 55: 27 vehicles
+ 6: 18 vehicles
+ 60: 72 vehicles
+ 66: 40 vehicles
+ 80: 9 vehicles
