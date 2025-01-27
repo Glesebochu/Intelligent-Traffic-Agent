@@ -8,8 +8,8 @@ from Testers.performance_testing_Bl import initialize_metrics, gather_performanc
 
 # SUMO configuration
 sumoBinary = "sumo-gui"
-sumoConfig = "CustomNetworks/twoLaneMap.sumocfg"
-log_file = "Logs/fixed_tl_log.txt"
+sumoConfig = "../CustomNetworks/twoLaneMap.sumocfg"
+log_file = "../Logs/fixed_tl_log.txt"
 
 # Traffic light phase definitions for intersections
 fixed_phases_dict = {
